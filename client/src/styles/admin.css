@@ -1,0 +1,229 @@
+.admin-shell {
+  --admin-ink: #282219;
+  --admin-paper: #f3f0e9;
+  --admin-brass: #b18436;
+  display: grid;
+  min-height: 100dvh;
+  grid-template-columns: 244px minmax(0, 1fr);
+  background: var(--admin-paper);
+  color: var(--admin-ink);
+}
+
+.admin-rail {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+  padding: 28px 17px 18px;
+  background: #211d17;
+  color: #f7f1e6;
+}
+
+.admin-wordmark {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-wordmark > span:last-child { display: grid; gap: 4px; }
+.admin-wordmark b { font-size: .77rem; letter-spacing: .14em; }
+.admin-wordmark small { color: #b9aa8b; font-size: .56rem; letter-spacing: .19em; }
+.admin-monogram { display: grid; width: 39px; height: 39px; place-items: center; border: 1px solid #9c7b43; color: #e1c381; font: 600 1.8rem/.8 'Cormorant Garamond', Georgia, serif; }
+.admin-nav-label { margin: 54px 0 12px 12px !important; color: #a59b89; font-size: .63rem !important; letter-spacing: .15em !important; text-transform: uppercase; }
+.admin-nav .MuiButton-root { justify-content: flex-start; min-height: 46px; padding: 0 13px; color: #d8d0c1; font-size: .78rem; font-weight: 600; }
+.admin-nav .MuiButton-root .MuiButton-startIcon { color: #b9aa8b; }
+.admin-nav .MuiButton-root:hover { background: rgba(255,255,255,.07); }
+.admin-nav .MuiButton-root.admin-nav-active { background: #3b3325; color: #f2d38e; }
+.admin-nav .admin-nav-active .MuiButton-startIcon { color: #e0bd72; }
+.admin-rail-bottom { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+.admin-rail-bottom .MuiDivider-root { margin: 0 0 10px; border-color: rgba(255,255,255,.14); }
+.admin-rail-bottom .MuiButton-root { justify-content: flex-start; color: #c9c0b0; font-size: .75rem; }
+.admin-rail-bottom .MuiButton-root:hover { background: rgba(255,255,255,.07); }
+
+.admin-workspace { min-width: 0; padding: 32px clamp(22px, 4vw, 58px) 56px; }
+.admin-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 32px; padding-bottom: 23px; border-bottom: 1px solid #ded8cc; }
+.admin-overline { color: #8d7549; font-size: .62rem !important; font-weight: 800 !important; letter-spacing: .14em !important; }
+.admin-page-title { margin-top: 3px !important; font-size: clamp(2rem, 3.5vw, 2.8rem) !important; line-height: 1 !important; }
+.admin-live-chip { border-color: #d4dfd2 !important; background: #edf3eb !important; color: #557153 !important; font-size: .64rem !important; }
+.admin-avatar { width: 34px !important; height: 34px !important; background: #d9c69f !important; color: #4a3a20 !important; font-size: .72rem !important; font-weight: 800 !important; }
+.admin-content { width: min(1280px, 100%); margin: 0 auto; }
+.admin-loading { display: grid; min-height: 250px; place-items: center; }
+.admin-muted { color: #777166 !important; font-size: .75rem !important; }
+
+.admin-welcome { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding: 27px 30px; border: 1px solid #ded5c5; background: linear-gradient(112deg, #fffdf8 0%, #f6f1e6 100%); }
+.admin-welcome h2 { max-width: 28ch; margin: 8px 0 7px; font-size: clamp(1.9rem, 3.4vw, 2.7rem); line-height: .98; }
+.admin-welcome p:last-child { margin: 0; color: #777166; font-size: .79rem; }
+.admin-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.admin-metric .MuiCardContent-root { padding: 19px 19px 16px; }
+.admin-metric-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: #777166; font-size: .7rem; }
+.admin-metric-icon { width: 35px !important; height: 35px !important; background: #f1e6ce !important; color: #98702d !important; }
+.admin-metric-icon .MuiSvgIcon-root { font-size: 19px; }
+.admin-metric-icon.stone { background: #e9e7e1 !important; color: #696459 !important; }
+.admin-metric-icon.green { background: #e6eee6 !important; color: #54785b !important; }
+.admin-metric-icon.clay { background: #f2e7df !important; color: #986d51 !important; }
+.admin-metric-value { margin: 11px 0 1px !important; font: 600 2.3rem/.95 'Cormorant Garamond', Georgia, serif !important; }
+.admin-metric-caption { color: #827c70; font-size: .63rem !important; }
+.admin-analytics-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, .8fr); gap: 14px; }
+.admin-analytics-card .MuiCardContent-root { padding: 23px; }
+.admin-section-heading { display: flex; justify-content: space-between; align-items: start; gap: 15px; margin-bottom: 19px; }
+.admin-section-heading h3, .admin-analytics-card h3 { font-size: 1.55rem; }
+.admin-section-heading p, .admin-analytics-card > .MuiCardContent-root > p { margin: 4px 0 0; color: #777166; font-size: .69rem; }
+.admin-section-heading .MuiChip-root { color: #735923; background: #f4eddf; font-size: .63rem; }
+.admin-range-row { margin-top: 14px; }
+.admin-range-label { display: flex; justify-content: space-between; margin-bottom: 5px; color: #4b463d; font-size: .71rem; }
+.admin-range-label b { font-weight: 700; }
+.admin-range-row .MuiLinearProgress-root { height: 6px; border-radius: 5px; background: #eee9df; }
+.admin-range-row .MuiLinearProgress-bar { border-radius: 5px; background: #b48b46; }
+.admin-enquiry-summary { background: #29241b !important; color: #f7f1e6 !important; }
+.admin-enquiry-summary .MuiCardContent-root > p { color: #c4bba9; }
+.admin-enquiry-number { margin-top: 28px; color: #e1c381; font: 600 4.7rem/.85 'Cormorant Garamond', Georgia, serif; }
+.admin-enquiry-summary .admin-muted { margin: 8px 0 21px; color: #c4bba9 !important; }
+.admin-enquiry-summary .MuiButton-root { color: #e1c381; }
+
+.admin-list-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.admin-list-toolbar h3 { font-size: 1.7rem; }
+.admin-list-toolbar > div > .admin-muted { margin-top: 4px; }
+.admin-product-search { width: min(380px, 100%); }
+.admin-product-search .MuiInputBase-root { gap: 9px; }
+.admin-product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.admin-product-tile { overflow: hidden; }
+.admin-product-media { position: relative; overflow: hidden; aspect-ratio: 1.28; background: #e9e4d9; }
+.admin-product-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .22s ease, transform .35s ease; }
+.admin-product-image.primary { transform: scale(1.001); }
+.admin-product-image.alternate { opacity: 0; }
+.admin-product-tile:hover .admin-product-image.primary { transform: scale(1.035); }
+.admin-product-tile:hover .admin-product-image.alternate { opacity: 1; }
+.admin-product-placeholder { display: grid; height: 100%; align-content: center; justify-items: center; gap: 8px; color: #928873; font-size: .72rem; }
+.admin-featured-chip { position: absolute; top: 11px; left: 11px; background: #fffdf0 !important; color: #866322 !important; font-size: .61rem !important; }
+.admin-featured-chip .MuiChip-icon { color: #a87927; font-size: 15px; }
+.admin-photo-count { position: absolute; right: 10px; bottom: 9px; padding: 3px 7px; border-radius: 20px; background: rgba(33,29,23,.75); color: white; font-size: .58rem !important; }
+.admin-product-details { padding: 13px 15px 14px !important; }
+.admin-product-category { color: #997435; font-size: .63rem !important; }
+.admin-product-name { overflow: hidden; margin: 2px 0 0 !important; font-size: .92rem !important; font-weight: 750 !important; text-overflow: ellipsis; white-space: nowrap; }
+.admin-product-finish { min-height: 19px; margin-top: 3px !important; color: #817a6e; font-size: .65rem !important; }
+.admin-product-actions { align-items: center; margin-top: 12px; }
+.admin-product-actions .MuiButton-root { min-height: 32px; border-color: #d8d0c1; color: #514a3f; font-size: .66rem; }
+.admin-product-actions .MuiIconButton-root { margin-left: auto; }
+.admin-empty { display: flex; min-height: 240px; flex-direction: column; justify-content: center; align-items: center; gap: 10px; padding: 30px; text-align: center; }
+.admin-empty > .MuiSvgIcon-root { color: #b38b4b; font-size: 32px; }
+.admin-empty h3 { font-size: 1.65rem; }
+.admin-empty p { max-width: 48ch; margin: 0 0 7px; color: #777166; font-size: .76rem; }
+.admin-pagination { display: flex; justify-content: center; padding-top: 8px; }
+
+.admin-dialog .MuiDialog-paper { border: 1px solid #e2dbcf; }
+.admin-dialog .MuiDialogTitle-root { padding: 22px 24px 15px; font: 600 1.8rem/1 'Cormorant Garamond', Georgia, serif; }
+.admin-dialog .MuiDialogTitle-root p { margin: 6px 0 0; color: #777166; font: 400 .71rem/1.5 'Manrope', system-ui, sans-serif; }
+.admin-dialog .MuiDialogContent-root { padding: 20px 24px; }
+.admin-product-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 2px 0 23px; }
+.admin-product-form-grid .MuiFormControl-root, .admin-product-form-grid .MuiTextField-root { min-width: 0; }
+.admin-featured-toggle { display: flex; justify-content: space-between; align-items: center; padding: 7px 12px; border: 1px solid #e3ddd2; border-radius: 8px; }
+.admin-featured-toggle p:first-child { font-size: .72rem; font-weight: 700; }
+.admin-featured-toggle p:last-child { color: #777166; font-size: .62rem; }
+.admin-description-field { grid-column: 1 / -1; }
+.admin-upload-area { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding-top: 19px; border-top: 1px solid #e8e2d8; }
+.admin-upload-area h3 { font-size: 1.35rem; }
+.admin-upload-area p { max-width: 60ch; margin: 4px 0 0; color: #777166; font-size: .65rem; }
+.admin-upload-area .MuiButton-root { flex: none; }
+.admin-image-limit { margin: 13px 0 9px !important; color: #777166; font-size: .63rem !important; }
+.admin-image-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 10px; }
+.admin-image-preview { position: relative; overflow: hidden; border: 1px solid #e4ddd1; border-radius: 7px; background: #f7f4ee; }
+.admin-image-preview img { display: block; width: 100%; aspect-ratio: 1.1; object-fit: cover; }
+.admin-image-preview > p { overflow: hidden; padding: 7px 34px 7px 8px; color: #686257; font-size: .59rem; text-overflow: ellipsis; white-space: nowrap; }
+.admin-image-preview .MuiIconButton-root { position: absolute; right: 3px; bottom: 2px; }
+.admin-dialog .MuiDialogActions-root { padding: 13px 24px 20px; }
+
+.admin-category-table { overflow-x: auto; }
+.admin-category-table .MuiTable-root { min-width: 590px; }
+.admin-category-table .MuiTableCell-root { border-color: #eee9e1; }
+.admin-category-name { font-size: .8rem !important; font-weight: 700 !important; }
+.admin-category-slug { color: #898274; font-size: .61rem !important; }
+.admin-category-table .MuiChip-root { min-width: 36px; background: #f1ebdf; font-size: .65rem; }
+.admin-category-form { display: grid; gap: 15px; padding-top: 14px !important; }
+.admin-enquiry-filters { display: flex; align-items: center; gap: 9px; }
+.admin-enquiry-filters .MuiTextField-root { width: min(280px, 32vw); }
+.admin-enquiry-filters .MuiFormControl-root { min-width: 125px; }
+.admin-enquiry-card { padding: 18px 20px; }
+.admin-enquiry-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+.admin-enquiry-name { font-size: .92rem !important; font-weight: 800 !important; }
+.admin-enquiry-header a { color: #8a692f; font-size: .68rem; }
+.admin-enquiry-header .admin-muted { margin: 2px 0 6px; }
+.admin-enquiry-header > div:last-child > .admin-muted { white-space: nowrap; }
+.admin-enquiry-items { margin: 13px 0 0; }
+.admin-enquiry-items .MuiChip-root { background: #f0ece3; font-size: .63rem; }
+.admin-enquiry-message { margin-top: 12px !important; padding-top: 11px; border-top: 1px solid #ece7df; color: #5e594e; font-size: .74rem !important; white-space: pre-wrap; }
+
+.admin-login-shell { display: grid; min-height: 100dvh; grid-template-columns: minmax(320px, .85fr) minmax(440px, 1.15fr); background: #f3f0e9; }
+.admin-login-brand { position: relative; display: flex; min-height: 100dvh; flex-direction: column; padding: clamp(25px, 5vw, 62px); overflow: hidden; background: #211d17; color: #f7f1e6; }
+.admin-login-brand::before { position: absolute; content: ''; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 78% 40%, rgba(177,132,54,.22), transparent 42%), linear-gradient(150deg, transparent 38%, rgba(0,0,0,.22)); }
+.admin-login-brand > * { position: relative; z-index: 1; }
+.admin-login-visual { max-width: 460px; margin: auto 0; }
+.admin-login-visual h2 { margin: 18px 0; color: #f7f1e6; font-size: clamp(3rem, 5vw, 5rem); line-height: .88; }
+.admin-login-visual p:last-child { max-width: 38ch; color: #c9c0b0; font-size: .82rem; line-height: 1.8; }
+.admin-login-footnote { color: #a99d88; font-size: .66rem !important; }
+.admin-login-panel { display: grid; place-items: center; padding: 36px; }
+.admin-login-card { width: min(440px, 100%); padding: clamp(25px, 4vw, 42px) !important; border: 1px solid #e5dfd4 !important; }
+.admin-login-card h1 { margin: 10px 0 8px; font-size: 2.7rem; }
+.admin-login-copy { margin-bottom: 23px !important; color: #777166; font-size: .75rem !important; line-height: 1.7 !important; }
+.admin-setup-alert { margin-bottom: 13px; font-size: .7rem; }
+.admin-login-form { display: grid; gap: 14px; margin-top: 20px; }
+.admin-login-form .MuiButton-root { min-height: 45px; }
+.admin-login-security { margin-top: 22px !important; color: #8a8479; font-size: .61rem !important; text-align: center; }
+.admin-route-loading { min-height: 100dvh; display: grid; place-items: center; margin: 0; background: #f3f0e9; color: #777166; font-size: .85rem; }
+
+@media (max-width: 1100px) {
+  .admin-shell { grid-template-columns: 215px minmax(0, 1fr); }
+  .admin-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .admin-shell { display: block; }
+  .admin-rail { position: sticky; z-index: 5; top: 0; width: 100%; height: auto; padding: 12px 16px; }
+  .admin-rail > .admin-wordmark { display: none; }
+  .admin-nav-label, .admin-rail-bottom { display: none !important; }
+  .admin-nav.MuiStack-root { flex-direction: row !important; justify-content: space-between; gap: 4px !important; }
+  .admin-nav .MuiButton-root { min-width: 0; flex: 1; flex-direction: column; gap: 3px; padding: 6px 3px; font-size: .58rem; }
+  .admin-nav .MuiButton-root .MuiButton-startIcon { margin: 0; }
+  .admin-workspace { padding: 21px 17px 40px; }
+  .admin-toolbar { margin-bottom: 22px; padding-bottom: 16px; }
+  .admin-page-title { font-size: 2.1rem !important; }
+  .admin-live-chip { display: none !important; }
+  .admin-welcome { align-items: flex-start; flex-direction: column; padding: 20px; }
+  .admin-analytics-grid { grid-template-columns: 1fr; }
+  .admin-enquiry-filters { width: 100%; flex-wrap: wrap; }
+  .admin-enquiry-filters .MuiTextField-root { width: 100%; }
+  .admin-enquiry-header { flex-direction: column; }
+  .admin-login-shell { grid-template-columns: 1fr; }
+  .admin-login-brand { min-height: 230px; padding: 22px; }
+  .admin-login-visual { margin: 38px 0 0; }
+  .admin-login-visual h2 { margin: 10px 0; font-size: 2.6rem; }
+  .admin-login-visual p:last-child { margin-bottom: 0; font-size: .69rem; }
+  .admin-login-footnote { display: none; }
+  .admin-login-panel { padding: 24px 17px; }
+}
+
+@media (max-width: 500px) {
+  .admin-metrics, .admin-product-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .admin-metric .MuiCardContent-root { padding: 13px; }
+  .admin-metric-top { align-items: flex-start; font-size: .61rem; }
+  .admin-metric-icon { width: 29px !important; height: 29px !important; }
+  .admin-metric-value { font-size: 1.9rem !important; }
+  .admin-metric-caption { font-size: .55rem !important; }
+  .admin-product-details { padding: 10px !important; }
+  .admin-product-name { font-size: .75rem !important; }
+  .admin-product-finish { font-size: .57rem !important; }
+  .admin-product-actions .MuiButton-root { min-width: 0; padding: 3px 7px; }
+  .admin-list-toolbar { align-items: stretch; flex-direction: column; }
+  .admin-list-toolbar > .MuiStack-root { justify-content: space-between; }
+  .admin-product-form-grid { grid-template-columns: 1fr; }
+  .admin-description-field { grid-column: auto; }
+  .admin-upload-area { align-items: flex-start; flex-direction: column; }
+  .admin-image-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-product-image { transition: none; }
+}
