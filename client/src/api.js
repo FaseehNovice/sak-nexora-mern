@@ -1,4 +1,4 @@
-const BASE = (import.meta.env.API_URL || '') + '/api';
+const BASE = (import.meta.env.VITE_API_URL || '') + '/api';
 
 export async function api(path, { method = 'GET', body, token } = {}) {
   const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
