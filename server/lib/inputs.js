@@ -48,6 +48,18 @@ function parseProductInput(value) {
     if (!['http:', 'https:'].includes(url.protocol)) throw new InputError('Image URLs must use HTTP or HTTPS.');
     return url.toString();
   });
+  const specifications = body.specifications === undefined ? [] : body.specifications;
+  if (!Array.isArray(specifications) || specifications.length > 20) throw new InputError('Add no more than 20 product specifications.');
+  const cleanSpecifications = specifications.map((item) => {
+    const row = requireRecord(item, 'A product specification');
+    return {
+      label: text(row.label, 'a specification name', 80, { required: true }),
+      value: text(row.value, 'a specification value', 500, { required: true }),
+    };
+  });
+  if (body.customizable !== undefined && typeof body.customizable !== 'boolean') {
+    throw new InputError('Choose whether this product can be customised.');
+  }
 
   return {
     name,
@@ -57,6 +69,8 @@ function parseProductInput(value) {
     finish: text(body.finish, 'the product finish', 60),
     images: cleanImages,
     description: text(body.description, 'the product description', 3000),
+    specifications: cleanSpecifications,
+    customizable: body.customizable === true,
     featured: body.featured,
   };
 }

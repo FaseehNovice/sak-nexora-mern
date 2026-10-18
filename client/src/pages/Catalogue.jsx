@@ -1,112 +1,277 @@
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useCategories, useFetch } from '../hooks';
-import { qs } from '../api';
+import { lazy, Suspense, useEffect } from 'react';
+import stagingCatalogue from '../data/staging-catalogue.json';
 import ProductCard from '../components/ProductCard.jsx';
+import ContactCtaSection from '../features/home/components/ContactCtaSection.jsx';
+
+const CatalogueOverview = lazy(() => import('./CatalogueOverview.jsx'));
+
+const CATEGORY_COVERS = {
+  furniture: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp',
+  chairs: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/atrium-chair-blue-1-1400x900.webp',
+  'sofas-seating': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/turkish-style-sofa-with-ottoman-1-1400x900.webp',
+  tables: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/veneta-dining-table-set-1-1000x667.webp',
+  'tea-trolleys': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/euro-gold-3-tier-tea-trolley-1-1024x683.webp',
+  'storage-decor': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/ebony-chester-1-1000x667.webp',
+  cutlery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-1400x900.webp',
+  'cutlery-shine': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/vittoria-cutlery-set-1-1400x900.webp',
+  'cutlery-matte': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/dolce-matte-cutlery-set-1-1400x900.webp',
+  'cutlery-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/hammered-gold-cutlery-set-1-1400x900.webp',
+  'cutlery-matte-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/milano-matte-gold-cutlery-set-1-1400x900.webp',
+  'buffet-servingware': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-1400x900.webp',
+  crockery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
+  melamine: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/melamine-dinner-plates-1-640x523.webp',
+  porcelain: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
+  'pizza-pans-plates': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
+  accessories: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/napkins-1-640x640.webp',
+  'bathroom-kits': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/wooden-bathroom-amenity-kit-1-1400x900.webp'
+};
+
+function categoryHref(targetSlug) {
+  const cat = stagingCatalogue.categories.find((c) => c.slug === targetSlug);
+  if (!cat) return `/catalogue/${targetSlug}`;
+  return cat.path;
+}
+
+function categorySlugs(targetSlug) {
+  const slugs = [targetSlug];
+  for (let index = 0; index < slugs.length; index += 1) {
+    stagingCatalogue.categories
+      .filter((category) => category.parentSlug === slugs[index])
+      .forEach((category) => slugs.push(category.slug));
+  }
+  return slugs;
+}
+
+function categoryCount(targetSlug) {
+  const slugs = new Set(categorySlugs(targetSlug));
+  return stagingCatalogue.products.filter((product) => slugs.has(product.categorySlug)).length;
+}
 
 export default function Catalogue() {
-  const { parent, child } = useParams();
-  const slug = child || parent || '';
+  const params = useParams();
   const [sp, setSp] = useSearchParams();
-  const page = parseInt(sp.get('page')) || 1;
-  const q = sp.get('q') || '';
-  const finish = sp.get('finish') || '';
-  const type = sp.get('type') || '';
-  const sort = sp.get('sort') || 'featured';
-  const [term, setTerm] = useState(q);
-  const { data: cats, error: categoriesError } = useCategories();
-  useEffect(() => setTerm(q), [q]);
+  const query = sp.get('s') || sp.get('q') || '';
 
-  const filters = useFetch(`/products/filters${qs({ category: slug })}`, [slug]);
-  const { data, loading, error } = useFetch(`/products${qs({ category: slug, q, finish, type, sort, page, limit: 12 })}`, [slug, q, finish, type, sort, page]);
-
-  const root = cats.find((c) => c.slug === (parent || slug)) || cats.find((c) => c.children.some((k) => k.slug === slug));
-  const current = root && (root.slug === slug ? root : root.children.find((k) => k.slug === slug));
-  const heading = current?.name || 'Full catalogue';
-
-  const submit = (e) => { e.preventDefault(); const n = new URLSearchParams(sp); if (term.trim()) n.set('q', term.trim()); else n.delete('q'); n.delete('page'); setSp(n); };
-  const updateFilter = (key, value) => {
-    const next = new URLSearchParams(sp);
-    if (value) next.set(key, value); else next.delete(key);
-    next.delete('page');
-    setSp(next);
-  };
-  const goPage = (n) => { const x = new URLSearchParams(sp); x.set('page', n); setSp(x); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  if (!params.parent && !query) {
+    return (
+      <Suspense fallback={<div className="wrap page"><p className="muted">Loading catalogue…</p></div>}>
+        <CatalogueOverview />
+      </Suspense>
+    );
+  }
 
   return (
-    <div className="wrap page catalogue">
-      <aside className="side">
-        <h2 className="side-title">Catalogue</h2>
-        <Link to="/catalogue" className={!slug ? 'on' : ''}>All products</Link>
-        {cats.map((c) => (
-          <div key={c.slug} className="side-group">
-            <Link to={`/catalogue/${c.slug}`} className={`head ${slug === c.slug ? 'on' : ''}`}>{c.name}</Link>
-            {(root?.slug === c.slug) && c.children.map((k) => (
-              <Link key={k.slug} to={`/catalogue/${c.slug}/${k.slug}`} className={`sub ${slug === k.slug ? 'on' : ''}`}>{k.name}</Link>
-            ))}
-          </div>
-        ))}
-      </aside>
+    <CategoryListing
+      routeSlugs={[params.parent, params.child, params.leaf].filter(Boolean)}
+      sp={sp}
+      setSp={setSp}
+      query={query}
+    />
+  );
+}
 
-      <section className="results">
-        <nav className="crumbs" aria-label="Breadcrumb"><Link to="/">Home</Link><span>/</span><Link to="/catalogue">Catalogue</Link>
-          {root && <><span>/</span><Link to={`/catalogue/${root.slug}`}>{root.name}</Link></>}
-          {current && current !== root && <><span>/</span><b>{current.name}</b></>}</nav>
-        <div className="results-head">
-          <div><h1>{heading}</h1>{current?.description && <p className="muted">{current.description}</p>}</div>
-          <form onSubmit={submit} className="search" role="search">
-            <input value={term} onChange={(e) => setTerm(e.target.value)} placeholder="Search products" aria-label="Search products" />
-            <button className="btn small">Search</button>
-          </form>
+function CategoryListing({ routeSlugs, sp, setSp, query }) {
+  const page = parseInt(sp.get('page'), 10) || 1;
+
+  // Find category path
+  const currentSlug = routeSlugs.at(-1);
+  const currentCat = stagingCatalogue.categories.find((c) => c.slug === currentSlug);
+  const rootCat = routeSlugs[0] ? stagingCatalogue.categories.find((c) => c.slug === routeSlugs[0]) : null;
+  const parentCat = currentCat?.parentSlug ? stagingCatalogue.categories.find((c) => c.slug === currentCat.parentSlug) : null;
+
+  // Determine subcategory chips
+  const currentChildren = currentCat
+    ? stagingCatalogue.categories.filter((c) => c.parentSlug === currentCat.slug)
+    : [];
+  const group = currentChildren.length ? currentCat : parentCat || currentCat;
+  const groupChildren = group
+    ? stagingCatalogue.categories.filter((c) => c.parentSlug === group.slug)
+    : [];
+
+  // Filter products
+  let filteredProducts = stagingCatalogue.products;
+  if (query) {
+    const q = query.toLowerCase();
+    filteredProducts = filteredProducts.filter(
+      (p) =>
+        p.name?.toLowerCase().includes(q) ||
+        p.categorySlug?.toLowerCase().includes(q) ||
+        p.category?.name?.toLowerCase().includes(q)
+    );
+  } else if (currentCat) {
+    const includedSlugs = new Set(categorySlugs(currentCat.slug));
+    filteredProducts = filteredProducts.filter((p) => includedSlugs.has(p.categorySlug));
+  }
+
+  const perPage = 24;
+  const totalItems = filteredProducts.length;
+  const totalPages = Math.ceil(totalItems / perPage) || 1;
+  const pagedProducts = filteredProducts.slice((page - 1) * perPage, page * perPage);
+
+  useEffect(() => {
+    // Reveal newly mounted cards
+    const $$ = (sel) => Array.prototype.slice.call(document.querySelectorAll(sel));
+    $$('[data-reveal], [data-unmask]').forEach((el) => el.classList.add('is-revealed'));
+    const hero = document.querySelector('.page-hero[data-hero]');
+    hero?.classList.add('is-entered');
+  }, [pagedProducts, page]);
+
+  const goPage = (n) => {
+    const nextSp = new URLSearchParams(sp);
+    nextSp.set('page', n);
+    setSp(nextSp);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const coverImg = (currentSlug && CATEGORY_COVERS[currentSlug]) ||
+    (rootCat && CATEGORY_COVERS[rootCat.slug]) ||
+    CATEGORY_COVERS.furniture;
+
+  const eyebrowText = query
+    ? 'Catalogue'
+    : parentCat
+    ? parentCat.name
+    : 'Catalogue';
+
+  const headingText = query
+    ? `Search: ${query}`
+    : currentCat?.name || 'Catalogue';
+
+  const ledeText = query
+    ? `Found ${totalItems} results matching “${query}”.`
+    : currentCat?.description || 'SS-304 (18/8) stainless steel cutlery in four finishes, sold as sets for 4 to 12 settings.';
+
+  return (
+    <>
+      <section className="page-hero" data-hero="">
+        <div className="page-hero__bg" aria-hidden="true">
+          <img src={coverImg} alt="" decoding="async" fetchpriority="high" />
         </div>
+        <svg className="page-hero__hex" viewBox="0 0 100 115.5" aria-hidden="true">
+          <path d="M50 2 96 28.5v58.5L50 113.5 4 87V28.5z" fill="none" stroke="currentColor" strokeWidth="0.5" pathLength="1" />
+        </svg>
+        <div className="wrap">
+          <nav className="crumbs" aria-label="Breadcrumb" data-hero-item="" style={{ '--hero-i': 0 }}>
+            <Link to="/">Home</Link>
+            <span aria-hidden="true" />
+            <Link to="/catalogue">Catalogue</Link>
+            {parentCat && (
+              <>
+                <span aria-hidden="true" />
+                <Link to={categoryHref(parentCat.slug)}>{parentCat.name}</Link>
+              </>
+            )}
+            <span aria-hidden="true" />
+            <span aria-current="page">{currentCat ? currentCat.name : query ? 'Search' : 'All'}</span>
+          </nav>
 
-        <div className="catalogue-filters" role="group" aria-label="Filter catalogue">
-          <label>Finish
-            <select value={finish} onChange={(e) => updateFilter('finish', e.target.value)}>
-              <option value="">All finishes</option>
-              {(filters.data?.finishes || []).map((item) => <option value={item} key={item}>{item}</option>)}
-            </select>
-          </label>
-          <label>Type
-            <select value={type} onChange={(e) => updateFilter('type', e.target.value)}>
-              <option value="">All types</option>
-              {(filters.data?.types || []).map((item) => <option value={item} key={item}>{item}</option>)}
-            </select>
-          </label>
-          <label>Sort by
-            <select value={sort} onChange={(e) => updateFilter('sort', e.target.value)}>
-              <option value="featured">Featured</option>
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="name-asc">Name: A to Z</option>
-              <option value="name-desc">Name: Z to A</option>
-            </select>
-          </label>
-          {(q || finish || type || sort !== 'featured') && <button className="link-btn" type="button" onClick={() => { setTerm(''); setSp(new URLSearchParams()); }}>Clear filters</button>}
+          <p className="eyebrow" data-hero-item="" style={{ '--hero-i': 1 }}>
+            {eyebrowText}
+          </p>
+          <h1 data-hero-item="" style={{ '--hero-i': 2 }}>
+            {headingText}
+          </h1>
+          <p className="lede" data-hero-item="" style={{ '--hero-i': 3 }}>
+            {ledeText}
+          </p>
         </div>
-
-        {filters.error && <p className="notice err" role="alert">Catalogue filters could not be loaded. {filters.error}</p>}
-        {categoriesError && <p className="notice err" role="alert">Catalogue categories could not be loaded. {categoriesError}</p>}
-        {error && <p className="notice err">{error}</p>}
-        {loading && !data && <p className="muted">Loading products…</p>}
-        {data && data.items.length === 0 && slug && !q && !finish && !type && (
-          <div className="notice">
-            No products have been added to {current?.name || 'this category'} yet. We’re adding new items, so please check back soon or <Link to="/contact">contact us</Link> and we’ll help you find what you need.
-          </div>
-        )}
-        {data && data.items.length === 0 && (!slug || q || finish || type) && (
-          <div className="notice">Nothing matches those filters yet. <Link to="/catalogue">Clear filters</Link> or <Link to="/contact">ask us</Link> for help finding what you need.</div>
-        )}
-        <div className="grid three">{data?.items.map((p) => <ProductCard key={p._id} p={p} />)}</div>
-
-        {data?.pages > 1 && (
-          <div className="pager">
-            <button className="btn ghost small" disabled={page <= 1} onClick={() => goPage(page - 1)}>Previous</button>
-            <span>Page {data.page} of {data.pages}</span>
-            <button className="btn ghost small" disabled={page >= data.pages} onClick={() => goPage(page + 1)}>Next</button>
-          </div>
-        )}
       </section>
-    </div>
+
+      <section className="section section--tight cat-page">
+        <div className="wrap">
+          {group && groupChildren.length > 0 && (
+            <div className="cat-bar">
+              <nav className="chips" aria-label="Sub-categories">
+                <Link
+                  className="chip"
+                  to={categoryHref(group.slug)}
+                  aria-current={currentCat?.slug === group.slug ? 'page' : undefined}
+                >
+                  All <small>{categoryCount(group.slug)}</small>
+                </Link>
+                {groupChildren.map((child) => (
+                  <Link
+                    key={child.slug}
+                    className="chip"
+                    to={categoryHref(child.slug)}
+                    aria-current={currentCat?.slug === child.slug ? 'page' : undefined}
+                  >
+                    {child.name} <small>{categoryCount(child.slug)}</small>
+                  </Link>
+                ))}
+              </nav>
+              <p className="cat-bar__count">Showing {totalItems} items</p>
+            </div>
+          )}
+
+          {(!group || groupChildren.length === 0) && (
+            <div className="cat-bar">
+              <p className="cat-bar__count">Showing {totalItems} items</p>
+            </div>
+          )}
+
+          {pagedProducts.length === 0 ? (
+            <div className="empty">
+              <p>Nothing matches those items yet.</p>
+              <Link className="btn btn--ghost" to="/catalogue">
+                Browse all products
+              </Link>
+            </div>
+          ) : (
+            <div className="grid">
+              {pagedProducts.map((product, idx) => (
+                <ProductCard
+                  key={product.id || product._id || product.slug}
+                  p={product}
+                  index={idx % 4}
+                />
+              ))}
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <nav className="navigation pagination" aria-label="Posts">
+              <h2 className="screen-reader-text">Posts pagination</h2>
+              <div className="nav-links">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => {
+                  if (n === page) {
+                    return (
+                      <span key={n} aria-current="page" className="page-numbers current">
+                        {n}
+                      </span>
+                    );
+                  }
+                  return (
+                    <button
+                      key={n}
+                      type="button"
+                      className="page-numbers"
+                      onClick={() => goPage(n)}
+                    >
+                      {n}
+                    </button>
+                  );
+                })}
+                {page < totalPages && (
+                  <button
+                    type="button"
+                    className="next page-numbers"
+                    onClick={() => goPage(page + 1)}
+                  >
+                    <span className="sr-only">Next page</span>
+                    <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </nav>
+          )}
+        </div>
+      </section>
+
+      <ContactCtaSection />
+    </>
   );
 }

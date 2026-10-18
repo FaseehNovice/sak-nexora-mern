@@ -24,8 +24,14 @@ async function productFilter(query) {
     const slug = String(query.category).trim();
     const category = await Category.findOne({ slug }).select('_id').lean();
     if (!category) return null;
-    const children = await Category.find({ parent: category._id }).select('_id').lean();
-    filter.category = { $in: [category._id, ...children.map((child) => child._id)] };
+    const categoryIds = [category._id];
+    let frontier = [category._id];
+    while (frontier.length) {
+      const children = await Category.find({ parent: { $in: frontier } }).select('_id').lean();
+      frontier = children.map((child) => child._id);
+      categoryIds.push(...frontier);
+    }
+    filter.category = { $in: categoryIds };
   }
 
   if (query.q !== undefined) {

@@ -14,13 +14,21 @@ async function categoryTree() {
     { ...category, count: countById.get(String(category._id)) || 0, children: [] },
   ]));
   const roots = [];
+  const childrenByParent = new Map();
   for (const category of byId.values()) {
-    const parent = category.parent && byId.get(String(category.parent));
-    if (parent) {
-      parent.children.push(category);
-      parent.count += category.count;
-    } else roots.push(category);
+    const parentId = category.parent && String(category.parent);
+    if (!parentId || !byId.has(parentId)) roots.push(category);
+    else childrenByParent.set(parentId, [...(childrenByParent.get(parentId) || []), category]);
   }
+  const attachChildren = (category) => {
+    category.children = childrenByParent.get(String(category._id)) || [];
+    category.children.forEach((child) => {
+      attachChildren(child);
+      category.count += child.count;
+    });
+    return category;
+  };
+  roots.forEach(attachChildren);
   return roots;
 }
 
@@ -32,9 +40,15 @@ function categoryId(value, label = 'category ID') {
 async function validateParent(parentId, currentId) {
   if (!parentId) return;
   if (currentId && parentId === currentId) throw new InputError('A category cannot be its own parent.');
-  const parent = await Category.findById(parentId).select('parent').lean();
+  let parent = await Category.findById(parentId).select('parent').lean();
   if (!parent) throw new InputError('Choose an existing parent category.');
-  if (parent.parent) throw new InputError('Categories can have a parent and one subcategory level only.');
+  let depth = 1;
+  while (parent.parent) {
+    if (currentId && String(parent.parent) === currentId) throw new InputError('A category cannot be moved under one of its descendants.');
+    parent = await Category.findById(parent.parent).select('parent').lean();
+    depth += 1;
+  }
+  if (depth >= 3) throw new InputError('Categories can be nested no more than three levels deep.');
   if (currentId && await Category.exists({ parent: currentId })) {
     throw new InputError('Move or delete this category’s subcategories before changing its parent.');
   }

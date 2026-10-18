@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "node --watch index.js",
     "start": "node index.js",
+    "catalogue:export": "node scripts/export-staging-catalogue.js",
+    "catalogue:import": "node scripts/import-staging-catalogue.js",
     "test": "node --test"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "cloudinary": "^2.11.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

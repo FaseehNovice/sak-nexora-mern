@@ -7,6 +7,15 @@ import { emptyProduct, MAX_PRODUCT_IMAGES } from './constants.js';
 import ProductTile from './components/ProductTile.jsx';
 import ProductDialog from './components/ProductDialog.jsx';
 
+function leafCategories(categories, ancestors = []) {
+  return categories.flatMap((category) => {
+    const path = [...ancestors, category.name];
+    return category.children?.length
+      ? leafCategories(category.children, path)
+      : [{ ...category, label: path.join(' / ') }];
+  });
+}
+
 export default function Products({ token, onAuthError }) {
   const [categories, setCategories] = useState([]);
   const [query, setQuery] = useState('');
@@ -17,11 +26,7 @@ export default function Products({ token, onAuthError }) {
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const leafCategories = useMemo(() => categories.flatMap((category) => (
-    category.children?.length
-      ? category.children.map((child) => ({ ...child, label: `${category.name} / ${child.name}` }))
-      : [{ ...category, label: category.name }]
-  )), [categories]);
+  const productCategories = useMemo(() => leafCategories(categories), [categories]);
 
   const handleError = useCallback((requestError) => {
     if (isAuthError(requestError)) onAuthError();
@@ -61,6 +66,8 @@ export default function Products({ token, onAuthError }) {
     const body = new FormData();
     ['name', 'slug', 'category', 'type', 'finish', 'description'].forEach((key) => body.append(key, form[key] || ''));
     body.append('featured', String(form.featured));
+    body.append('customizable', String(Boolean(form.customizable)));
+    body.append('specifications', JSON.stringify(form.specifications || []));
     body.append('existingImages', JSON.stringify(form.images));
     form.newImages.forEach((file) => body.append('images', file));
     try {
@@ -117,14 +124,14 @@ export default function Products({ token, onAuthError }) {
         <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
           <Typography className="admin-muted">{list.total} products</Typography>
           <Button variant="contained" startIcon={<AddPhotoAlternateOutlinedIcon />}
-            disabled={!leafCategories.length}
-            onClick={() => setForm({ ...emptyProduct, category: leafCategories[0]?._id || '' })}>
+            disabled={!productCategories.length}
+            onClick={() => setForm({ ...emptyProduct, category: productCategories[0]?._id || '' })}>
             Add product
           </Button>
         </Stack>
       </Box>
       {message && <Alert severity={/saved|deleted/i.test(message) ? 'success' : 'error'}>{message}</Alert>}
-      {!leafCategories.length && <Alert severity="warning">Create a catalogue category before adding products.</Alert>}
+      {!productCategories.length && <Alert severity="warning">Create a catalogue category before adding products.</Alert>}
 
       {loading ? <Box className="admin-loading"><CircularProgress /></Box> : list.items.length ? (
         <Box className="admin-product-grid">
@@ -136,13 +143,13 @@ export default function Products({ token, onAuthError }) {
         <Inventory2OutlinedIcon />
         <Typography variant="h3">{query ? 'No matching products' : 'Your catalogue is ready to fill'}</Typography>
         <Typography>{query ? 'Try another search term.' : 'Add your first product, choose its range and upload the images shown on your storefront.'}</Typography>
-        {!query && <Button variant="contained" onClick={() => setForm({ ...emptyProduct, category: leafCategories[0]?._id || '' })}>Add first product</Button>}
+        {!query && <Button variant="contained" onClick={() => setForm({ ...emptyProduct, category: productCategories[0]?._id || '' })}>Add first product</Button>}
       </Paper>}
 
       {list.pages > 1 && <Box className="admin-pagination"><Pagination count={list.pages} page={page} onChange={(_, nextPage) => setPage(nextPage)} color="primary" /></Box>}
 
       <ProductDialog
-        form={form} categories={leafCategories} busy={busy} onClose={() => setForm(null)}
+        form={form} categories={productCategories} busy={busy} onClose={() => setForm(null)}
         onChange={setForm} onSave={save} onAddImages={selectImages}
       />
     </Stack>

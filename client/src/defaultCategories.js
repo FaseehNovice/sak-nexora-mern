@@ -2,7 +2,7 @@ export const defaultCategories = [
   {
     name: 'Furniture',
     slug: 'furniture',
-    description: 'Chairs, tables, sofas and trolleys for halls, lobbies, restaurants and cafés.',
+    description: 'Chairs, tables, sofas and trolleys for halls, lobbies, Restaurants and cafés.',
     count: 0,
     children: [
       { name: 'Chairs', slug: 'chairs', count: 0 },
@@ -32,6 +32,8 @@ export const defaultCategories = [
     children: [
       { name: 'Melamine', slug: 'melamine', count: 0 },
       { name: 'Porcelain', slug: 'porcelain', count: 0 },
+      { name: 'Pizza Pans & Plates', slug: 'pizza-pans-plates', count: 0 },
+      { name: 'Buffet & Servingware', slug: 'buffet-servingware', count: 0 },
     ],
   },
   {

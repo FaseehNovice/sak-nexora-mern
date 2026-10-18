@@ -1,0 +1,141 @@
+/* ==========================================================================
+   SAK Nexora — design tokens
+   Palette sampled off the client's business card (2026-10-15):
+   card black, foil gold (#f4b945 mid, #a6854f low, #ffe479 high), sand panel #d9b97e.
+   Contrast (measured, WCAG 2.2):
+     --gold on --ink ............ 10.6:1   --gold-deep on --ivory ... 6.1:1
+     --text-inv on --ink ........ 17.0:1   --muted on --ivory ....... 6.8:1
+     --muted-inv on --ink ....... 9.0:1    --text on --sand ......... 9.4:1
+     --gold-deep on --cream ..... 5.4:1    white on --wa ............ 5.0:1
+     --gold-low on --ink ........ 5.1:1
+   Gold is never used for text on light surfaces; --gold-deep is.
+   ========================================================================== */
+
+@font-face {
+	font-family: "Cormorant Garamond";
+	src: url("../fonts/cormorant-garamond-var.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Cormorant Garamond";
+	src: url("../fonts/cormorant-garamond-italic-var.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Cinzel";
+	src: url("../fonts/cinzel-var.woff2") format("woff2");
+	font-weight: 400 700;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Manrope";
+	src: url("../fonts/manrope-var.woff2") format("woff2");
+	font-weight: 300 800;
+	font-display: swap;
+}
+
+:root {
+	/* ---- Surfaces --------------------------------------------------------- */
+	--ink: #0b0a08;
+	--ink-2: #13110d;
+	--ink-3: #1c1913;
+	--ink-4: #27231b;
+	--ivory: #faf6ee;
+	--paper: #fffdf8;
+	--cream: #f1e8d6;
+	--sand: #d9b97e;
+	--sand-soft: #ead7b0;
+
+	/* ---- Gold ------------------------------------------------------------- */
+	--gold-hi: #ffe9a8;
+	--gold: #e9b649;
+	--gold-mid: #c8963a;
+	--gold-low: #a37a2c;
+	--gold-deep: #7a5716;
+	--foil: linear-gradient(100deg, #8a6420 0%, #e9b649 20%, #ffe9a8 36%, #c8963a 54%, #f4c96a 72%, #8a6420 100%);
+	--foil-v: linear-gradient(180deg, #ffe9a8 0%, #f4b945 42%, #a6762a 70%, #f0cd7a 100%);
+
+	/* ---- Text --------------------------------------------------------------- */
+	--text: #1b1813;
+	--muted: #5d554a;
+	--text-inv: #f4ede0;
+	--muted-inv: #b9ad98;
+
+	/* ---- Lines ----------------------------------------------------------------- */
+	--line: rgba(27, 24, 19, 0.12);
+	--line-strong: rgba(27, 24, 19, 0.22);
+	--line-dark: rgba(233, 182, 73, 0.2);
+	--line-dark-soft: rgba(244, 237, 224, 0.1);
+
+	/* ---- Status ----------------------------------------------------------------- */
+	--wa: #11803f;
+	--wa-deep: #0b6b33;
+	--ok: #1e7a46;
+	--danger: #b3261e;
+	--confirm-bg: #fff3c4;
+
+	/* ---- Type --------------------------------------------------------------- */
+	--font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+	--font-label: "Cinzel", "Trajan Pro", Georgia, serif;
+	--font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+	--step--2: 0.75rem;
+	--step--1: 0.875rem;
+	--step-0: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+	--step-1: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+	--step-2: clamp(1.55rem, 1.3rem + 1vw, 2.1rem);
+	--step-3: clamp(2rem, 1.55rem + 1.9vw, 3.1rem);
+	--step-4: clamp(2.5rem, 1.75rem + 3.2vw, 4.4rem);
+	--step-5: clamp(2.9rem, 1.9rem + 4.6vw, 6.1rem);
+
+	/* ---- Space + layout ----------------------------------------------------- */
+	--wrap: 1320px;
+	--wrap-narrow: 860px;
+	--gutter: clamp(16px, 4vw, 40px);
+	--section: clamp(72px, 6rem + 3vw, 144px);
+	--s-1: 4px;
+	--s-2: 8px;
+	--s-3: 12px;
+	--s-4: 16px;
+	--s-5: 24px;
+	--s-6: 32px;
+	--s-7: 48px;
+	--s-8: 64px;
+	--header-h: 84px;
+	--header-h-stuck: 68px;
+
+	/* ---- Shape + depth -------------------------------------------------- */
+	--radius-s: 6px;
+	--radius: 12px;
+	--radius-l: 20px;
+	--shadow-1: 0 1px 2px rgba(20, 15, 5, 0.06), 0 4px 14px rgba(20, 15, 5, 0.06);
+	--shadow-2: 0 2px 6px rgba(20, 15, 5, 0.08), 0 18px 44px rgba(20, 15, 5, 0.12);
+	--shadow-gold: 0 10px 40px rgba(233, 182, 73, 0.22);
+
+	/* ---- Motion ------------------------------------------------------------- */
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--dur-fast: 160ms;
+	--dur-base: 280ms;
+	--dur-slow: 520ms;
+	--dur-reveal: 900ms;
+	--stagger: 80ms;
+	--hero-delay: 250ms;
+	--hero-stagger: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--dur-fast: 0ms;
+		--dur-base: 0ms;
+		--dur-slow: 0ms;
+		--dur-reveal: 0ms;
+		--stagger: 0ms;
+		--hero-delay: 0ms;
+		--hero-stagger: 0ms;
+	}
+}

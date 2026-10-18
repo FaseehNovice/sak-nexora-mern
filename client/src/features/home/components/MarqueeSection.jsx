@@ -1,14 +1,32 @@
+import { Fragment } from 'react';
+
+const ITEMS = [
+  'Furniture',
+  'Banquet Halls',
+  'Cutlery',
+  'Hotels',
+  'Crockery',
+  'Restaurants',
+  'Accessories',
+  'Coffee Shops',
+  'Bathroom kits',
+];
 
 export default function MarqueeSection() {
   return (
     <section className="marquee" aria-label="Our product ranges">
-        <div className="marquee-track" aria-hidden="true">
-          {[0, 1].map((copy) => (
-            <span className="marquee-set" key={copy}>
-              {['Furniture', 'Banquet halls', 'Cutlery', 'Hotels', 'Crockery', 'Restaurants', 'Accessories', 'Coffee shops', 'Bathroom kits'].map((label) => <span className="marquee-item" key={label}>{label}</span>)}
-            </span>
-          ))}
-        </div>
-      </section>
+      <div className="marquee__track" data-marquee="-1" aria-hidden="true">
+        {[0, 1].map((copy) => (
+          <div className="marquee__set" key={copy}>
+            {ITEMS.map((label) => (
+              <Fragment key={label}>
+                <span>{label}</span>
+                <i aria-hidden="true" />
+              </Fragment>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

@@ -29,7 +29,22 @@ export default function ProductDialog({ form, categories, busy, onClose, onChang
               <Box><Typography>Feature on storefront</Typography><Typography>Give this product priority in featured collections.</Typography></Box>
               <Switch checked={Boolean(form.featured)} onChange={(event) => update('featured', event.target.checked)} inputProps={{ 'aria-label': 'Feature product on storefront' }} />
             </Box>
+            <Box className="admin-featured-toggle">
+              <Box><Typography>Customisation available</Typography><Typography>Show the custom size, fabric, top or finish note.</Typography></Box>
+              <Switch checked={Boolean(form.customizable)} onChange={(event) => update('customizable', event.target.checked)} inputProps={{ 'aria-label': 'Customisation available' }} />
+            </Box>
             <TextField className="admin-description-field" multiline minRows={3} label="Description" value={form.description} onChange={(event) => update('description', event.target.value)} />
+          </Box>
+
+          <Box className="admin-specifications">
+            <Box className="admin-upload-area"><Box><Typography variant="h3">Specifications</Typography><Typography>Dimensions, materials and other product details.</Typography></Box>
+              <Button variant="outlined" onClick={() => update('specifications', [...(form.specifications || []), { label: '', value: '' }])}>Add specification</Button>
+            </Box>
+            {(form.specifications || []).map((specification, index) => <Box className="admin-product-form-grid" key={`spec-${index}`}>
+              <TextField label="Specification" value={specification.label} onChange={(event) => update('specifications', form.specifications.map((item, row) => row === index ? { ...item, label: event.target.value } : item))} />
+              <TextField label="Value" value={specification.value} onChange={(event) => update('specifications', form.specifications.map((item, row) => row === index ? { ...item, value: event.target.value } : item))} />
+              <Button color="error" onClick={() => update('specifications', form.specifications.filter((_, row) => row !== index))}>Remove</Button>
+            </Box>)}
           </Box>
 
           <Box className="admin-upload-area">

@@ -8,6 +8,8 @@ const productSchema = new mongoose.Schema({
   finish: { type: String, default: '', maxlength: 60 },
   images: { type: [String], validate: [(images) => images.length <= 12, 'A product can have no more than 12 images.'] },
   description: { type: String, default: '', maxlength: 3000 },
+  specifications: [{ label: { type: String, required: true, maxlength: 80 }, value: { type: String, required: true, maxlength: 500 } }],
+  customizable: { type: Boolean, default: false },
   featured: { type: Boolean, default: false },
 }, { timestamps: true });
 

@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Wooden Guest Amenity Kit",
+    "slug": "wooden-bathroom-amenity-kit",
+    "categorySlug": "bathroom-kits",
+    "type": "Bathroom Kits",
+    "description": "Guest amenity set pictured with wooden-handled shaving and grooming items, a comb, toothbrush and small care sachets. The exact contents can vary; confirm the pack contents before quotation.",
+    "files": ["IMG-20261018-WA0103.jpg"]
+  },
+  {
+    "name": "Kraft Paper Guest Amenity Set",
+    "slug": "kraft-paper-guest-amenity-set",
+    "categorySlug": "bathroom-kits",
+    "type": "Bathroom Kits",
+    "description": "Individually packed guest amenities shown as shaving, dental and comb kits in kraft-paper sleeves. Confirm the contents and available pack options before quotation.",
+    "files": ["IMG-20261018-WA0104.jpg"]
+  },
+  {
+    "name": "Guest Dental Care Kit",
+    "slug": "guest-dental-care-kit",
+    "categorySlug": "bathroom-kits",
+    "type": "Bathroom Kits",
+    "description": "Compact guest dental-care items pictured with toothbrushes, toothpaste and a wrapped soap. Confirm the exact kit contents and quantities before quotation.",
+    "files": ["IMG-20261018-WA0105.jpg"]
+  },
+  {
+    "name": "Paper-Wrapped Drinking Straws",
+    "slug": "drinking-straws",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Individually paper-wrapped drinking straws for hygienic service. The supplied artwork describes them as eco-friendly, strong and suitable for custom branding; confirm material and available sizes before quotation.",
+    "files": ["IMG-20261018-WA0167.jpg"]
+  },
+  {
+    "name": "Tissue Stack Refills",
+    "slug": "tissue-stacks",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Loose tissue stacks shown for refilling table tissue boxes. The supplied artwork describes them as soft, absorbent and suitable for daily use; confirm sheet count and dimensions before quotation.",
+    "files": ["IMG-20261018-WA0168.jpg"]
+  },
+  {
+    "name": "TPE Disposable Gloves",
+    "slug": "tpe-disposable-gloves",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Black TPE disposable gloves pictured in a 100-piece box. The artwork shows powder-free, non-sterile, single-use gloves in Large; confirm sizes and pack quantities before quotation.",
+    "files": ["IMG-20261018-WA0169.jpg", "IMG-20261018-WA0199.jpg"]
+  },
+  {
+    "name": "Paper-Wrapped Toothpicks",
+    "slug": "toothpicks",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Individually paper-wrapped wooden toothpicks for hygienic table and takeaway service. The supplied artwork describes the paper as biodegradable; confirm pack quantity before quotation.",
+    "files": ["IMG-20261018-WA0170.jpg"]
+  },
+  {
+    "name": "Tissue Boxes",
+    "slug": "tissue-boxes",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Facial tissue boxes shown in multiple printed designs for Hotels, Restaurants and catering. Custom printing may be available; confirm dimensions and order quantities before quotation.",
+    "files": ["IMG-20261018-WA0171.jpg"]
+  },
+  {
+    "name": "Custom-Printed Table and Coffee Napkins",
+    "slug": "napkins",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Table and coffee napkins shown with custom restaurant and event branding. Confirm paper quality, sizes, print options and order quantities before quotation.",
+    "files": ["IMG-20261018-WA0172.jpg"]
+  },
+  {
+    "name": "Custom Sugar Sachets",
+    "slug": "sugar-sachets",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Single-serve sugar sachets shown with custom hotel and restaurant branding. Confirm sugar type, sachet weight, print options and carton quantities before quotation.",
+    "files": ["IMG-20261018-WA0173.jpg"]
+  },
+  {
+    "name": "Aluminium Foil Rolls",
+    "slug": "aluminium-foil",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Aluminium foil for wrapping, grilling, storage and serving. Supplied artwork shows regular and jumbo rolls, widths from 30 to 45 cm, and 12, 14, 18 and 20 micron options; confirm stock and roll lengths before quotation.",
+    "files": ["IMG-20261018-WA0174.jpg", "IMG-20261018-WA0175.jpg", "IMG-20261018-WA0197.jpg", "IMG-20261018-WA0200.jpg"]
+  },
+  {
+    "name": "Disposable Vinyl Examination Gloves",
+    "slug": "disposable-gloves",
+    "categorySlug": "accessories",
+    "type": "Accessories",
+    "description": "Powder-free, non-sterile, single-use vinyl examination gloves shown in black, in boxes of 100 and Large size. Confirm sizes, colours and pack quantities before quotation.",
+    "files": ["IMG-20261018-WA0176.jpg", "IMG-20261018-WA0198.jpg"]
+  },
+  {
+    "name": "Buffet Chafing and Serving Dishes",
+    "slug": "buffet-chafing-serving-dishes",
+    "categorySlug": "crockery",
+    "type": "Buffet Dishes",
+    "description": "A selection of round and rectangular lidded buffet servers and chafing dishes shown in gold-tone and polished finishes. Individual materials, dimensions and heating/fuel setup vary; confirm each item before quotation.",
+    "files": [
+      "IMG-20261018-WA0152.jpg",
+      "IMG-20261018-WA0154.jpg",
+      "IMG-20261018-WA0155.jpg",
+      "IMG-20261018-WA0156.jpg",
+      "IMG-20261018-WA0157.jpg",
+      "IMG-20261018-WA0163.jpg",
+      "IMG-20261018-WA0164.jpg",
+      "IMG-20261018-WA0165.jpg",
+      "IMG-20261018-WA0166.jpg"
+    ]
+  }
+]

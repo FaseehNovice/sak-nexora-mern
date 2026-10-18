@@ -18,6 +18,8 @@ Enquiry list state -> browser localStorage
 
 The browser sends requests through `client/src/api.js`. The homepage is composed of sections under `client/src/features/home/components/`; its motion lifecycle lives in `client/src/features/home/useHomeMotion.js`. The admin workspace is grouped under `client/src/features/admin/`. During Vite development, `/api` is proxied to `http://localhost:5000`. `server/app.js` mounts auth, category, product, and enquiry routes under `/api`; `server/index.js` calls `connectDb()` from `server/db/db.js` and waits for MongoDB before opening the HTTP listener.
 
+The catalogue client also ships a snapshot at `client/src/data/staging-catalogue.json`. Catalogue routes read this snapshot, while `client/src/data/catalogueFallback.js` and `client/src/defaultCategories.js` provide data when API requests cannot be served. The admin workspace still requires MongoDB-backed API operations. Snapshot import/export commands live in `server/scripts/` and are exposed as `catalogue:import` and `catalogue:export` npm scripts.
+
 ## What MongoDB stores
 
 ### Categories
@@ -57,7 +59,7 @@ Enquiry documents contain:
 
 ## Catalogue read flow
 
-1. `useCategories()` in the client requests `GET /api/categories`, then caches the category tree in memory for the current page session. Public navigation and catalogue views display the built-in five-category/eleven-subcategory tree if the API returns no categories or is unavailable; an API error is still shown on the home/catalogue page. Admin forms do not use fallback categories because product writes require real database ObjectIds.
+1. `useCategories()` in the client requests `GET /api/categories`, then caches the category tree in memory for the current page session. Public navigation and catalogue views display built-in fallback categories if the API returns no categories or is unavailable; an API error is still shown on the home/catalogue page. Admin forms do not use fallback categories because product writes require real database ObjectIds.
 2. The catalogue page reads the route's category slug and URL search parameters: `q`, `finish`, `type`, `sort`, and `page`. A category with no matching products displays an empty-state message that says products are not added yet and suggests checking back or contacting the business.
 3. It requests `GET /api/products/filters?category=<slug>` for available finish/type choices.
 4. It requests `GET /api/products` with `category`, `q`, `finish`, `type`, `sort`, `page`, and `limit`.
@@ -65,7 +67,9 @@ Enquiry documents contain:
 6. The products response is `{ items, total, page, pages }`; each product's category is populated with category `name` and `slug`.
 7. Filter options are read from distinct product `finish` and `type` values matching the category filter. With no matching products, these arrays can be empty.
 
-Supported product sort values are `featured`, `newest`, `oldest`, `name-asc`, and `name-desc`. The catalogue UI requests 12 products per page.
+Supported product sort values are `featured`, `newest`, `oldest`, `name-asc`, and `name-desc`. The category listing displays 24 snapshot products per page.
+
+The empty Crockery subcategories are Pizza Pans & Plates (`/catalogue/crockery/pizza-pans-plates/`) and Buffet & Servingware (`/catalogue/crockery/buffet-servingware/`). They are represented in the client category snapshot and fallback tree with zero products.
 
 ## Product create/update flow
 
@@ -96,6 +100,8 @@ Supported product sort values are `featured`, `newest`, `oldest`, `name-asc`, an
 4. The backend validates contact fields and quantities, looks up submitted product IDs in MongoDB, discards client-supplied item names, and writes a new Enquiry using names read from Product records.
 5. The API responds with HTTP 201 and `{ "ok": true, "id": "<enquiry id>" }`. The browser clears its local enquiry list after success.
 6. Admin enquiry listing reads `GET /api/enquiries` with optional `status`, `q`, `page`, and `limit`; status updates use `PATCH /api/enquiries/:id` with `{ "status": "new|quoted|closed" }`, and deletion uses `DELETE /api/enquiries/:id`.
+
+Customer-facing phone labels use `+92` followed by the national number without its domestic leading zero. The Contact page arranges the contact channels and office map beside the enquiry form on desktop, and stacks them on narrow screens.
 
 ## Error behavior
 

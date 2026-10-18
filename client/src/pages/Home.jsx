@@ -19,8 +19,6 @@ export default function Home() {
   const [tab, setTab] = useState('chairs');
   const [finish, setFinish] = useState(FINISHES[0].slug);
   const tabProducts = useFetch(`/products?category=${tab}&limit=8`, [tab]);
-  const furnitureCount = cats.find((category) => category.slug === 'furniture')?.count ?? 179;
-
   const covers = useMemo(() => {
     const leafToRoot = {};
     cats.forEach((root) => {
@@ -42,7 +40,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroSection furnitureCount={furnitureCount} />
+      <HeroSection />
 
       <MarqueeSection />
 
