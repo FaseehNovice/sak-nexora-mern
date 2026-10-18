@@ -11,9 +11,24 @@ import authRoutes from './routes/auth.routes.js';
 import categoryRoutes from './routes/categories.routes.js';
 import productRoutes from './routes/products.routes.js';
 import enquiryRoutes from './routes/enquiries.routes.js';
+import { connectDb } from './db/db.js';
 
 const app = express();
 app.set('trust proxy', 1);
+app.use(async (req, res, next) => {
+  try {
+    await connectDb();
+    next();
+  } catch (error) {
+    console.error('MongoDB connection failed:', error);
+
+    res.status(503).json({
+      ok: false,
+      database: 'disconnected',
+      message: 'Database connection failed',
+    });
+  }
+});
 app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({ origin: process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : true }));
 app.use(express.json({ limit: '1mb' }));
