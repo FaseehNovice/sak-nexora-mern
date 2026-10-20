@@ -15,7 +15,7 @@ export default function HeroSection() {
           </p>
           <h1 className="hero__title">
             <span className="hero__line">
-              <span data-hero-item="" style={{ '--hero-i': 1 }}>Furnish the hall.</span>
+              <span data-hero-item="" style={{ '--hero-i': 1 }}>Furnish the Venue.</span>
             </span>
             <span className="hero__line">
               <span data-hero-item="" style={{ '--hero-i': 2 }}>
