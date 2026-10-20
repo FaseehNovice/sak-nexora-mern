@@ -89,12 +89,20 @@ function parseCategoryInput(value) {
     if (!Number.isInteger(order) || order < 0 || order > 100000) throw new InputError('Category order must be a whole number between 0 and 100000.');
   }
 
+  const image = text(body.image, 'the category image URL', 2048);
+  if (image) {
+    let imageUrl;
+    try { imageUrl = new URL(image); } catch { throw new InputError('Enter a valid category image URL.'); }
+    if (!['http:', 'https:'].includes(imageUrl.protocol)) throw new InputError('Category image URLs must use HTTP or HTTPS.');
+  }
+
   return {
     name,
     slug,
     parent: rawParent || null,
     description: text(body.description, 'the category description', 1000),
     order,
+    ...(image ? { image } : {}),
   };
 }
 

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Category from '../models/Category.js';
 import Product from '../models/Product.js';
 import { InputError, parseCategoryInput, parsePagination } from '../lib/inputs.js';
+import { deleteCloudinaryImages, uploadCategoryFile } from '../lib/cloudinary.js';
 
 async function categoryTree() {
   const [categories, counts] = await Promise.all([
@@ -74,17 +75,28 @@ export async function listAdminCategories(query) {
   };
 }
 
-export async function createCategory(body) {
+export async function createCategory(body, file) {
   const input = parseCategoryInput(body);
   await validateParent(input.parent, null);
-  return Category.create(input);
+  const image = file ? await uploadCategoryFile(file, input.slug) : input.image;
+  try {
+    return await Category.create({ ...input, image });
+  } catch (error) {
+    if (file && image) await deleteCloudinaryImages([image]).catch(() => {});
+    throw error;
+  }
 }
 
-export async function updateCategory(idValue, body) {
+export async function updateCategory(idValue, body, file) {
   const id = categoryId(idValue);
   const input = parseCategoryInput(body);
   await validateParent(input.parent, id);
-  return Category.findByIdAndUpdate(id, input, { new: true, runValidators: true });
+  const current = await Category.findById(id).lean();
+  if (!current) return null;
+  const image = file ? await uploadCategoryFile(file, input.slug) : (input.image ?? current.image ?? '');
+  const category = await Category.findByIdAndUpdate(id, { ...input, image }, { new: true, runValidators: true });
+  if (file && current.image && current.image !== image) await deleteCloudinaryImages([current.image]).catch(() => {});
+  return category;
 }
 
 export async function deleteCategory(idValue) {

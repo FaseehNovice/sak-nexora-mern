@@ -18,7 +18,7 @@ export async function listAdminCategories(req, res, next) {
 
 export async function createCategory(req, res, next) {
   try {
-    res.status(201).json(await categoriesService.createCategory(req.body));
+    res.status(201).json(await categoriesService.createCategory(req.body, req.file));
   } catch (error) {
     next(error);
   }
@@ -26,7 +26,7 @@ export async function createCategory(req, res, next) {
 
 export async function updateCategory(req, res, next) {
   try {
-    const category = await categoriesService.updateCategory(req.params.id, req.body);
+    const category = await categoriesService.updateCategory(req.params.id, req.body, req.file);
     if (!category) return res.status(404).json({ message: 'Category not found.' });
     res.json(category);
   } catch (error) {

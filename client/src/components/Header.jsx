@@ -144,7 +144,7 @@ export default function Header() {
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/crockery/">
-                      Crockery <span>{crockeryCat?.count ?? 9}</span>
+                      Crockery <span>{crockeryCat?.count ?? 25}</span>
                     </Link>
                     <ul>
                       <li><Link to="/catalogue/crockery/melamine/">Melamine</Link></li>
@@ -155,13 +155,13 @@ export default function Header() {
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/accessories/">
-                      Accessories <span>{accessoriesCat?.count ?? 9}</span>
+                      Accessories <span>{accessoriesCat?.count ?? 11}</span>
                     </Link>
                     <p>Everyday table and kitchen disposables, supplied in bulk.</p>
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/bathroom-kits/">
-                      Bathroom Kits <span>{bathroomKitsCat?.count ?? 1}</span>
+                      Bathroom Kits <span>{bathroomKitsCat?.count ?? 4}</span>
                     </Link>
                     <p>Eco-friendly guest amenity kits for Hotels and guest houses.</p>
                   </div>

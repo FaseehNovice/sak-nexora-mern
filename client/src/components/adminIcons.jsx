@@ -8,6 +8,7 @@ export const AddPhotoAlternateOutlinedIcon = createAdminIcon('M21 19V5H3v14h18ZM
 export const AnalyticsOutlinedIcon = createAdminIcon('M4 19h16v2H2V3h2v16Zm3-2H5v-5h2v5Zm5 0h-2V7h2v10Zm5 0h-2V4h2v13Zm5 0h-2V9h2v8Z');
 export const CategoryOutlinedIcon = createAdminIcon('M20.59 13.41 11 23l-9-9V2h12l9 9-2.41 2.41ZM4 4v9.17l7 7 7.17-7.17-7-7H4Zm2 2h4v4H6V6Z');
 export const DeleteOutlineIcon = createAdminIcon('M6 7h12l-1 14H7L6 7Zm2-3h8l1 2H7l1-2Zm-4 2h16v2H4V6Zm5 4v8h2v-8H9Zm4 0v8h2v-8h-2Z');
+export const DownloadOutlinedIcon = createAdminIcon('M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3ZM5 19h14v2H5v-2Z');
 export const EditOutlinedIcon = createAdminIcon('m3 17.25 11.06-11.06 3.75 3.75L6.75 21H3v-3.75Zm14.94-14.5a1.5 1.5 0 0 1 2.12 0l1.19 1.19a1.5 1.5 0 0 1 0 2.12l-1.12 1.12-3.75-3.75 1.56-.68Z');
 export const Inventory2OutlinedIcon = createAdminIcon('M3 4h18v4H3V4Zm1 6h16v11H4V10Zm4 2v2h8v-2H8Z');
 export const LogoutOutlinedIcon = createAdminIcon('M10 17v-2h5V9h-5V7l-5 5 5 5Zm8-14H6a2 2 0 0 0-2 2v3h2V5h12v14H6v-3H4v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z');

@@ -18,7 +18,7 @@ export function About() {
       <section className="page-hero" data-hero="">
         <div className="page-hero__bg" aria-hidden="true">
           <img
-            src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/hotel.webp"
+            src="/staging/wp-content/themes/sak-nexora/assets/images/sectors/hotel.webp"
             alt=""
             decoding="async"
             fetchpriority="high"
@@ -49,7 +49,7 @@ export function About() {
         <div className="wrap about-story__grid">
           <div className="about-story__media" data-parallax-img="" data-unmask="">
             <img
-              src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/banquet-2.webp"
+              src="/staging/wp-content/themes/sak-nexora/assets/images/sectors/banquet-2.webp"
               alt=""
               width="1200"
               height="800"
@@ -182,7 +182,7 @@ export function About() {
           <div className="bento">
             <Link className="bento__tile bento__tile--furniture" to="/catalogue/furniture" data-reveal="up" style={{ '--reveal-i': 0 }} data-tilt="">
               <span className="bento__media">
-                <SafeImg src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/modern-astoria-dining-table-with-toranto-chairs-1.webp" alt="Furniture" />
+                <SafeImg src="https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515726/sak-nexora/products/modern-astoria-dining-table-with-toranto-chairs-511efce4-7917-4d0f-a3b5-d184ef12e7e0-1.webp" alt="Furniture" />
               </span>
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
@@ -200,7 +200,7 @@ export function About() {
 
             <Link className="bento__tile bento__tile--cutlery" to="/catalogue/cutlery" data-reveal="up" style={{ '--reveal-i': 1 }} data-tilt="">
               <span className="bento__media">
-                <SafeImg src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-640x640.webp" alt="Cutlery" />
+                <SafeImg src="https://res.cloudinary.com/dspo5bfyg/image/upload/v1792300878/sak-nexora/products/elara-gold-cutlery-set-a5895bc3-f749-4b8f-9ac0-81afab35c11d-1.webp" alt="Cutlery" />
               </span>
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
@@ -218,12 +218,12 @@ export function About() {
 
             <Link className="bento__tile bento__tile--crockery" to="/catalogue/crockery" data-reveal="up" style={{ '--reveal-i': 2 }} data-tilt="">
               <span className="bento__media">
-                <SafeImg src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-tea-cups-saucers-1-640x640.webp" alt="Crockery" />
+                <SafeImg src="https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515709/sak-nexora/products/porcelain-tea-cups-saucers-cd6ae5c9-33c1-4dc5-9896-3260f319a2e1-1.webp" alt="Crockery" />
               </span>
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">9 items</span>
+                <span className="bento__count">25 items</span>
                 <span className="bento__name">Crockery</span>
                 <span className="bento__kids">Melamine · Porcelain · Pizza Pans &amp; Plates</span>
                 <span className="bento__go" aria-hidden="true">
@@ -236,12 +236,12 @@ export function About() {
 
             <Link className="bento__tile bento__tile--accessories" to="/catalogue/accessories" data-reveal="up" style={{ '--reveal-i': 3 }} data-tilt="">
               <span className="bento__media">
-                <SafeImg src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/napkins-1-640x640.webp" alt="Accessories" />
+                <SafeImg src="https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515182/sak-nexora/products/napkins-2affdbd7-cc6d-496b-9fb2-65e618baad48-1.jpg" alt="Accessories" />
               </span>
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">9 items</span>
+                <span className="bento__count">11 items</span>
                 <span className="bento__name">Accessories</span>
                 <span className="bento__kids">Everyday table and kitchen disposables, supplied in bulk.</span>
                 <span className="bento__go" aria-hidden="true">
@@ -254,12 +254,12 @@ export function About() {
 
             <Link className="bento__tile bento__tile--bathroom-kits" to="/catalogue/bathroom-kits" data-reveal="up" style={{ '--reveal-i': 4 }} data-tilt="">
               <span className="bento__media">
-                <SafeImg src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/wooden-bathroom-amenity-kit-1-640x640.webp" alt="Bathroom Kits" />
+                <SafeImg src="https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515188/sak-nexora/products/wooden-bathroom-amenity-kit-95c85fab-a24c-47be-9d2b-9bf77d577de6-1.webp" alt="Bathroom Kits" />
               </span>
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">1 item</span>
+                <span className="bento__count">4 items</span>
                 <span className="bento__name">Bathroom Kits</span>
                 <span className="bento__kids">Eco-friendly guest amenity kits for hotels and guest houses.</span>
                 <span className="bento__go" aria-hidden="true">
@@ -494,7 +494,7 @@ export function Contact() {
       <section className="page-hero" data-hero="">
         <div className="page-hero__bg" aria-hidden="true">
           <img
-            src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/cafe-lounge.webp"
+            src="/staging/wp-content/themes/sak-nexora/assets/images/sectors/cafe-lounge.webp"
             alt=""
             decoding="async"
             fetchpriority="high"

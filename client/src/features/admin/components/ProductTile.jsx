@@ -1,5 +1,30 @@
 import { Box, Button, Card, CardContent, Chip, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { AddPhotoAlternateOutlinedIcon, DeleteOutlineIcon, EditOutlinedIcon, StarOutlineIcon } from '../../../components/adminIcons.jsx';
+import { AddPhotoAlternateOutlinedIcon, DeleteOutlineIcon, DownloadOutlinedIcon, EditOutlinedIcon, StarOutlineIcon } from '../../../components/adminIcons.jsx';
+
+async function downloadImage(url, productName) {
+  if (!url) return;
+  const extension = url.split('?')[0].split('.').pop() || 'jpg';
+  const filename = (productName || 'product').toLowerCase().replace(/[^a-z0-9.-]+/g, '-') + '-photo.' + extension;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Image download failed.');
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = objectUrl;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(objectUrl);
+  } catch {
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener noreferrer';
+    anchor.click();
+  }
+}
 
 export default function ProductTile({ product, onEdit, onDelete }) {
   const images = product.images || [];
@@ -19,6 +44,9 @@ export default function ProductTile({ product, onEdit, onDelete }) {
         <Typography className="admin-product-finish">{[product.type, product.finish].filter(Boolean).join(' · ') || 'No type or finish specified'}</Typography>
         <Stack direction="row" spacing={1} className="admin-product-actions">
           <Button size="small" variant="outlined" startIcon={<EditOutlinedIcon />} onClick={onEdit}>Edit</Button>
+          <Tooltip title={images[0] ? 'Download primary product photo' : 'No product photo to download'}>
+            <span><IconButton size="small" disabled={!images[0]} aria-label={'Download ' + product.name + ' photo'} onClick={() => downloadImage(images[0], product.name)}><DownloadOutlinedIcon /></IconButton></span>
+          </Tooltip>
           <Tooltip title="Delete product">
             <IconButton size="small" color="error" aria-label={`Delete ${product.name}`} onClick={onDelete}><DeleteOutlineIcon /></IconButton>
           </Tooltip>

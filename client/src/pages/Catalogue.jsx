@@ -7,24 +7,24 @@ import ContactCtaSection from '../features/home/components/ContactCtaSection.jsx
 const CatalogueOverview = lazy(() => import('./CatalogueOverview.jsx'));
 
 const CATEGORY_COVERS = {
-  furniture: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp',
-  chairs: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/atrium-chair-blue-1-1400x900.webp',
-  'sofas-seating': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/turkish-style-sofa-with-ottoman-1-1400x900.webp',
-  tables: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/veneta-dining-table-set-1-1000x667.webp',
-  'tea-trolleys': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/euro-gold-3-tier-tea-trolley-1-1024x683.webp',
-  'storage-decor': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/ebony-chester-1-1000x667.webp',
-  cutlery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-1400x900.webp',
-  'cutlery-shine': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/vittoria-cutlery-set-1-1400x900.webp',
-  'cutlery-matte': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/dolce-matte-cutlery-set-1-1400x900.webp',
-  'cutlery-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/hammered-gold-cutlery-set-1-1400x900.webp',
-  'cutlery-matte-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/milano-matte-gold-cutlery-set-1-1400x900.webp',
-  'buffet-servingware': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-1400x900.webp',
-  crockery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
-  melamine: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/melamine-dinner-plates-1-640x523.webp',
-  porcelain: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
-  'pizza-pans-plates': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
-  accessories: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/napkins-1-640x640.webp',
-  'bathroom-kits': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/wooden-bathroom-amenity-kit-1-1400x900.webp'
+  furniture: '/staging/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp',
+  chairs: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515610/sak-nexora/products/atrium-chair-blue-cd7d43f1-8e4a-4bd9-bb9b-d01661f334dd-1.webp',
+  'sofas-seating': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515647/sak-nexora/products/turkish-style-sofa-with-ottoman-d7ab49ad-5073-48a6-afe2-b8abebeeaed8-1.webp',
+  tables: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515722/sak-nexora/products/veneta-dining-table-set-04b854eb-bc50-4e44-96bd-06a6736130e4-1.webp',
+  'tea-trolleys': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515660/sak-nexora/products/euro-gold-3-tier-tea-trolley-73109e76-324b-45e9-9217-bc6f262ac697-1.webp',
+  'storage-decor': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515609/sak-nexora/products/ebony-chester-6d87384c-6fde-480e-b096-47a19372596a-1.webp',
+  cutlery: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792300878/sak-nexora/products/elara-gold-cutlery-set-a5895bc3-f749-4b8f-9ac0-81afab35c11d-1.webp',
+  'cutlery-shine': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515682/sak-nexora/products/vittoria-cutlery-set-4adbdffa-f68e-485d-8141-e1b554650979-1.webp',
+  'cutlery-matte': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515681/sak-nexora/products/dolce-matte-cutlery-set-2437a295-379e-4532-9e8f-b9418c2172d9-1.webp',
+  'cutlery-gold': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515681/sak-nexora/products/hammered-gold-cutlery-set-94f30d0f-a3a4-4f75-94c0-0174f1423ae4-1.webp',
+  'cutlery-matte-gold': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515682/sak-nexora/products/milano-matte-gold-cutlery-set-a94c7ab9-6649-4944-bec0-fd7d2cb203ff-1.webp',
+  'buffet-servingware': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792300878/sak-nexora/products/elara-gold-cutlery-set-a5895bc3-f749-4b8f-9ac0-81afab35c11d-1.webp',
+  crockery: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/porcelain-dinner-plates-391c207b-913a-44ca-8f60-15729e525797-1.webp',
+  melamine: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/melamine-dinner-plates-175d39f4-b776-4cdb-a123-17a8cf742b83-1.webp',
+  porcelain: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/porcelain-dinner-plates-391c207b-913a-44ca-8f60-15729e525797-1.webp',
+  'pizza-pans-plates': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/porcelain-dinner-plates-391c207b-913a-44ca-8f60-15729e525797-1.webp',
+  accessories: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515182/sak-nexora/products/napkins-2affdbd7-cc6d-496b-9fb2-65e618baad48-1.jpg',
+  'bathroom-kits': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515188/sak-nexora/products/wooden-bathroom-amenity-kit-95c85fab-a24c-47be-9d2b-9bf77d577de6-1.webp'
 };
 
 function categoryHref(targetSlug) {

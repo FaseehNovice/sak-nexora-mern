@@ -7,19 +7,19 @@ import SafeImg from '../components/SafeImg.jsx';
 import ContactCtaSection from '../features/home/components/ContactCtaSection.jsx';
 
 const TILE_IMAGES = {
-  chairs: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/atrium-chair-blue-1-640x640.webp',
-  'sofas-seating': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/turkish-style-sofa-with-ottoman-1-640x640.webp',
-  tables: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/veneta-dining-table-set-1-640x640.webp',
-  'tea-trolleys': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/euro-gold-3-tier-tea-trolley-1-640x640.webp',
-  'storage-decor': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/ebony-chester-1-640x640.webp',
-  'cutlery-shine': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/vittoria-cutlery-set-1-640x640.webp',
-  'cutlery-matte': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/dolce-matte-cutlery-set-1-640x640.webp',
-  'cutlery-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/hammered-gold-cutlery-set-1-640x640.webp',
-  'cutlery-matte-gold': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/milano-matte-gold-cutlery-set-1-640x640.webp',
-  'buffet-servingware': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-640x640.webp',
-  melamine: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/melamine-dinner-plates-1-640x523.webp',
-  porcelain: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp',
-  'pizza-pans-plates': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-dinner-plates-1-640x640.webp'
+  chairs: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515610/sak-nexora/products/atrium-chair-blue-cd7d43f1-8e4a-4bd9-bb9b-d01661f334dd-1.webp',
+  'sofas-seating': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515647/sak-nexora/products/turkish-style-sofa-with-ottoman-d7ab49ad-5073-48a6-afe2-b8abebeeaed8-1.webp',
+  tables: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515722/sak-nexora/products/veneta-dining-table-set-04b854eb-bc50-4e44-96bd-06a6736130e4-1.webp',
+  'tea-trolleys': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515660/sak-nexora/products/euro-gold-3-tier-tea-trolley-73109e76-324b-45e9-9217-bc6f262ac697-1.webp',
+  'storage-decor': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515609/sak-nexora/products/ebony-chester-6d87384c-6fde-480e-b096-47a19372596a-1.webp',
+  'cutlery-shine': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515682/sak-nexora/products/vittoria-cutlery-set-4adbdffa-f68e-485d-8141-e1b554650979-1.webp',
+  'cutlery-matte': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515681/sak-nexora/products/dolce-matte-cutlery-set-2437a295-379e-4532-9e8f-b9418c2172d9-1.webp',
+  'cutlery-gold': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515681/sak-nexora/products/hammered-gold-cutlery-set-94f30d0f-a3a4-4f75-94c0-0174f1423ae4-1.webp',
+  'cutlery-matte-gold': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515682/sak-nexora/products/milano-matte-gold-cutlery-set-a94c7ab9-6649-4944-bec0-fd7d2cb203ff-1.webp',
+  'buffet-servingware': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792300878/sak-nexora/products/elara-gold-cutlery-set-a5895bc3-f749-4b8f-9ac0-81afab35c11d-1.webp',
+  melamine: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/melamine-dinner-plates-175d39f4-b776-4cdb-a123-17a8cf742b83-1.webp',
+  porcelain: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/porcelain-dinner-plates-391c207b-913a-44ca-8f60-15729e525797-1.webp',
+  'pizza-pans-plates': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515708/sak-nexora/products/porcelain-dinner-plates-391c207b-913a-44ca-8f60-15729e525797-1.webp'
 };
 
 function categoryHref(targetSlug) {
@@ -53,7 +53,7 @@ export default function CatalogueOverview() {
   };
 
   const roots = categories.filter((c) => !c.parentSlug && !c.parent);
-  const totalItems = roots.reduce((acc, c) => acc + (c.count || 0), 0) || 280;
+  const totalItems = roots.reduce((acc, c) => acc + (c.count || 0), 0) || 301;
 
   const accessoriesProducts = stagingCatalogue.products.filter(
     (p) => p.categorySlug === 'accessories' || p.category?.slug === 'accessories'
@@ -67,7 +67,7 @@ export default function CatalogueOverview() {
       <section className="page-hero" data-hero="">
         <div className="page-hero__bg" aria-hidden="true">
           <img
-            src="https://stage.saknexora.198.251.65.48.nip.io/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp"
+            src="/staging/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp"
             alt=""
             decoding="async"
             fetchpriority="high"
@@ -126,13 +126,13 @@ export default function CatalogueOverview() {
             Cutlery <small>82</small>
           </a>
           <a className="chip" href="#cat-crockery">
-            Crockery <small>9</small>
+            Crockery <small>25</small>
           </a>
           <a className="chip" href="#cat-accessories">
-            Accessories <small>9</small>
+            Accessories <small>11</small>
           </a>
           <a className="chip" href="#cat-bathroom-kits">
-            Bathroom Kits <small>1</small>
+            Bathroom Kits <small>4</small>
           </a>
         </div>
       </nav>
@@ -158,8 +158,8 @@ export default function CatalogueOverview() {
 
           <div className="sub-grid">
             {[
-              { slug: 'chairs', name: 'Chairs', count: 40 },
-              { slug: 'sofas-seating', name: 'Sofas & Seating', count: 10 },
+              { slug: 'chairs', name: 'Chairs', count: 39 },
+              { slug: 'sofas-seating', name: 'Sofas & Seating', count: 11 },
               { slug: 'tables', name: 'Tables', count: 103 },
               { slug: 'tea-trolleys', name: 'Tea Trolleys', count: 12 },
               { slug: 'storage-decor', name: 'Storage & Décor', count: 14 }
@@ -247,7 +247,7 @@ export default function CatalogueOverview() {
         <div className="wrap">
           <div className="section-head section-head--split">
             <div>
-              <p className="eyebrow" data-reveal="up">9 items</p>
+              <p className="eyebrow" data-reveal="up">25 items</p>
               <h2 data-reveal="up" style={{ '--reveal-i': 1 }}>Crockery</h2>
               <p data-reveal="up" style={{ '--reveal-i': 2 }}>
                 Melamine for busy service, porcelain for fine dining, and pizza pans and plates for serving.
@@ -266,7 +266,7 @@ export default function CatalogueOverview() {
               { slug: 'melamine', name: 'Melamine', count: 4 },
               { slug: 'porcelain', name: 'Porcelain', count: 5 },
               { slug: 'pizza-pans-plates', name: 'Pizza Pans & Plates', count: 0 },
-              { slug: 'buffet-servingware', name: 'Buffet & Servingware', count: 0 }
+              { slug: 'buffet-servingware', name: 'Buffet & Servingware', count: 16 }
             ].map((sub, idx) => (
               <Link
                 key={sub.slug}
@@ -299,7 +299,7 @@ export default function CatalogueOverview() {
         <div className="wrap">
           <div className="section-head section-head--split">
             <div>
-              <p className="eyebrow" data-reveal="up">9 items</p>
+              <p className="eyebrow" data-reveal="up">25 items</p>
               <h2 data-reveal="up" style={{ '--reveal-i': 1 }}>Accessories</h2>
               <p data-reveal="up" style={{ '--reveal-i': 2 }}>
                 Everyday table and kitchen disposables, supplied in bulk.
@@ -326,7 +326,7 @@ export default function CatalogueOverview() {
         <div className="wrap">
           <div className="section-head section-head--split">
             <div>
-              <p className="eyebrow" data-reveal="up">1 item</p>
+              <p className="eyebrow" data-reveal="up">4 items</p>
               <h2 data-reveal="up" style={{ '--reveal-i': 1 }}>Bathroom Kits</h2>
               <p data-reveal="up" style={{ '--reveal-i': 2 }}>
                 Eco-friendly guest amenity kits for Hotels and guest houses.

@@ -87,11 +87,11 @@ function isCloudinaryImageUrl(value) {
   }
 }
 
-function uploadBuffer(buffer, publicId) {
+function uploadBuffer(buffer, publicId, folder = 'sak-nexora/products') {
   configure();
   return new Promise((resolve, reject) => {
     const upload = cloudinary.uploader.upload_stream({
-      folder: 'sak-nexora/products',
+      folder,
       public_id: publicId,
       resource_type: 'image',
       allowed_formats: ALLOWED_FORMATS,
@@ -104,6 +104,17 @@ function uploadBuffer(buffer, publicId) {
     });
     Readable.from([buffer]).on('error', reject).pipe(upload);
   });
+}
+
+async function uploadCategoryFile(file, slug) {
+  if (!file) return '';
+  configure();
+  try {
+    const publicId = `category-${slug}-${randomUUID()}`;
+    return await uploadBuffer(file.buffer, publicId, 'sak-nexora/categories');
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function uploadProductFiles(files, slug) {
@@ -182,5 +193,6 @@ export {
   deleteCloudinaryImages,
   isCloudinaryImageUrl,
   uploadProductFiles,
+  uploadCategoryFile,
   uploadRemoteProductImage,
 };

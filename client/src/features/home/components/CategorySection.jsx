@@ -3,19 +3,19 @@ import SafeImg from '../../../components/SafeImg.jsx';
 import { referenceImages } from '../../../referenceImages.js';
 
 const STAGING_IMAGES = {
-  furniture: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/modern-astoria-dining-table-with-toranto-chairs-1.webp',
-  cutlery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/elara-gold-cutlery-set-1-640x640.webp',
-  crockery: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/porcelain-tea-cups-saucers-1-640x640.webp',
-  accessories: 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/napkins-1-640x640.webp',
-  'bathroom-kits': 'https://stage.saknexora.198.251.65.48.nip.io/wp-content/uploads/2026/10/wooden-bathroom-amenity-kit-1-640x640.webp',
+  furniture: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515726/sak-nexora/products/modern-astoria-dining-table-with-toranto-chairs-511efce4-7917-4d0f-a3b5-d184ef12e7e0-1.webp',
+  cutlery: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792300878/sak-nexora/products/elara-gold-cutlery-set-a5895bc3-f749-4b8f-9ac0-81afab35c11d-1.webp',
+  crockery: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515709/sak-nexora/products/porcelain-tea-cups-saucers-cd6ae5c9-33c1-4dc5-9896-3260f319a2e1-1.webp',
+  accessories: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515182/sak-nexora/products/napkins-2affdbd7-cc6d-496b-9fb2-65e618baad48-1.jpg',
+  'bathroom-kits': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515188/sak-nexora/products/wooden-bathroom-amenity-kit-95c85fab-a24c-47be-9d2b-9bf77d577de6-1.webp',
 };
 
 const DEFAULT_COUNTS = {
   furniture: 179,
   cutlery: 82,
-  crockery: 9,
-  accessories: 9,
-  'bathroom-kits': 1,
+  crockery: 25,
+  accessories: 11,
+  'bathroom-kits': 4,
 };
 
 export default function CategorySection({ cats = [], covers = {}, categoriesError }) {
@@ -54,7 +54,7 @@ export default function CategorySection({ cats = [], covers = {}, categoriesErro
 
         <div className="bento">
           {orderedCats.map((category, index) => {
-            const imgSrc = STAGING_IMAGES[category.slug] || referenceImages.categories[category.slug] || covers[category.slug]?.images?.[0];
+            const imgSrc = category.image || STAGING_IMAGES[category.slug] || referenceImages.categories[category.slug] || covers[category.slug]?.images?.[0];
             const kidsText = category.children?.length
               ? category.children.map((c) => c.name).join(' · ')
               : category.description || (category.slug === 'accessories' ? 'Everyday table and kitchen disposables, supplied in bulk.' : 'Eco-friendly guest amenity kits for Hotels and guest houses.');
