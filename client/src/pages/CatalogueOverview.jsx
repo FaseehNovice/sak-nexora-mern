@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCategories } from '../hooks';
+import { useCategories, useFetch } from '../hooks';
 import stagingCatalogue from '../data/staging-catalogue.json';
 import ProductCard from '../components/ProductCard.jsx';
 import SafeImg from '../components/SafeImg.jsx';
@@ -31,6 +31,8 @@ function categoryHref(targetSlug) {
 
 export default function CatalogueOverview() {
   const { data: categories } = useCategories();
+  const { data: accessoriesResult } = useFetch('/products?category=accessories&limit=60', []);
+  const { data: bathroomResult } = useFetch('/products?category=bathroom-kits&limit=60', []);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -55,10 +57,10 @@ export default function CatalogueOverview() {
   const roots = categories.filter((c) => !c.parentSlug && !c.parent);
   const totalItems = roots.reduce((acc, c) => acc + (c.count || 0), 0) || 301;
 
-  const accessoriesProducts = stagingCatalogue.products.filter(
+  const accessoriesProducts = accessoriesResult?.items || stagingCatalogue.products.filter(
     (p) => p.categorySlug === 'accessories' || p.category?.slug === 'accessories'
   );
-  const bathroomProducts = stagingCatalogue.products.filter(
+  const bathroomProducts = bathroomResult?.items || stagingCatalogue.products.filter(
     (p) => p.categorySlug === 'bathroom-kits' || p.category?.slug === 'bathroom-kits'
   );
 

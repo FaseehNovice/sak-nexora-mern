@@ -1,5 +1,7 @@
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { lazy, Suspense, useEffect } from 'react';
+import { useCategories, useFetch } from '../hooks.js';
+import { qs } from '../api.js';
 import stagingCatalogue from '../data/staging-catalogue.json';
 import ProductCard from '../components/ProductCard.jsx';
 import ContactCtaSection from '../features/home/components/ContactCtaSection.jsx';
@@ -73,42 +75,33 @@ export default function Catalogue() {
 
 function CategoryListing({ routeSlugs, sp, setSp, query }) {
   const page = parseInt(sp.get('page'), 10) || 1;
-
-  // Find category path
-  const currentSlug = routeSlugs.at(-1);
-  const currentCat = stagingCatalogue.categories.find((c) => c.slug === currentSlug);
-  const rootCat = routeSlugs[0] ? stagingCatalogue.categories.find((c) => c.slug === routeSlugs[0]) : null;
-  const parentCat = currentCat?.parentSlug ? stagingCatalogue.categories.find((c) => c.slug === currentCat.parentSlug) : null;
-
-  // Determine subcategory chips
-  const currentChildren = currentCat
-    ? stagingCatalogue.categories.filter((c) => c.parentSlug === currentCat.slug)
-    : [];
+  const currentSlug = routeSlugs.at(-1) || '';
+  const { data: liveCategories = [] } = useCategories({ useFallback: false });
+  const categoryTree = liveCategories.length ? liveCategories : stagingCatalogue.categories;
+  const categoryMap = new Map();
+  const flatten = (items, parentSlug = null) => items.forEach((category) => {
+    const normalized = { ...category, parentSlug: category.parentSlug || parentSlug };
+    categoryMap.set(normalized.slug, normalized);
+    flatten(category.children || [], normalized.slug);
+  });
+  flatten(categoryTree);
+  const currentCat = categoryMap.get(currentSlug);
+  const rootCat = categoryMap.get(routeSlugs[0]);
+  const parentCat = currentCat?.parentSlug ? categoryMap.get(currentCat.parentSlug) : null;
+  const currentChildren = [...categoryMap.values()].filter((category) => category.parentSlug === currentCat?.slug);
   const group = currentChildren.length ? currentCat : parentCat || currentCat;
-  const groupChildren = group
-    ? stagingCatalogue.categories.filter((c) => c.parentSlug === group.slug)
-    : [];
-
-  // Filter products
-  let filteredProducts = stagingCatalogue.products;
-  if (query) {
-    const q = query.toLowerCase();
-    filteredProducts = filteredProducts.filter(
-      (p) =>
-        p.name?.toLowerCase().includes(q) ||
-        p.categorySlug?.toLowerCase().includes(q) ||
-        p.category?.name?.toLowerCase().includes(q)
-    );
-  } else if (currentCat) {
-    const includedSlugs = new Set(categorySlugs(currentCat.slug));
-    filteredProducts = filteredProducts.filter((p) => includedSlugs.has(p.categorySlug));
-  }
-
-  const perPage = 24;
-  const totalItems = filteredProducts.length;
-  const totalPages = Math.ceil(totalItems / perPage) || 1;
-  const pagedProducts = filteredProducts.slice((page - 1) * perPage, page * perPage);
-
+  const groupChildren = [...categoryMap.values()].filter((category) => category.parentSlug === group?.slug);
+  const productPath = `/products${qs({ q: query, category: currentSlug, page, limit: 24 })}`;
+  const { data: productResult } = useFetch(productPath, [productPath]);
+  const fallbackProducts = stagingCatalogue.products.filter((product) => {
+    if (query && ![product.name, product.type, product.finish, product.description].some((value) => value?.toLowerCase().includes(query.toLowerCase()))) return false;
+    return !currentSlug || categorySlugs(currentSlug).includes(product.categorySlug);
+  });
+  const filteredProducts = productResult?.items || fallbackProducts;
+  const totalItems = productResult?.total ?? fallbackProducts.length;
+  const totalPages = productResult?.pages || Math.ceil(totalItems / 24) || 1;
+  const pagedProducts = productResult ? filteredProducts : fallbackProducts.slice((page - 1) * 24, page * 24);
+  const categoryCount = (category) => category?.count || stagingCatalogue.products.filter((product) => categorySlugs(category?.slug).includes(product.categorySlug)).length;
   useEffect(() => {
     // Reveal newly mounted cards
     const $$ = (sel) => Array.prototype.slice.call(document.querySelectorAll(sel));
@@ -188,7 +181,7 @@ function CategoryListing({ routeSlugs, sp, setSp, query }) {
                   to={categoryHref(group.slug)}
                   aria-current={currentCat?.slug === group.slug ? 'page' : undefined}
                 >
-                  All <small>{categoryCount(group.slug)}</small>
+                  All <small>{categoryCount(group)}</small>
                 </Link>
                 {groupChildren.map((child) => (
                   <Link
@@ -197,7 +190,7 @@ function CategoryListing({ routeSlugs, sp, setSp, query }) {
                     to={categoryHref(child.slug)}
                     aria-current={currentCat?.slug === child.slug ? 'page' : undefined}
                   >
-                    {child.name} <small>{categoryCount(child.slug)}</small>
+                    {child.name} <small>{categoryCount(child)}</small>
                   </Link>
                 ))}
               </nav>

@@ -16,7 +16,7 @@ function leafCategories(categories, ancestors = []) {
   });
 }
 
-export default function Products({ token, onAuthError }) {
+export default function Products({ token, onAuthError, onNotify }) {
   const [categories, setCategories] = useState([]);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
@@ -30,8 +30,8 @@ export default function Products({ token, onAuthError }) {
 
   const handleError = useCallback((requestError) => {
     if (isAuthError(requestError)) onAuthError();
-    setMessage(requestError.message);
-  }, [onAuthError]);
+    onNotify(requestError.message, 'error');
+  }, [onAuthError, onNotify]);
 
   const loadCategories = useCallback(async () => {
     try {
@@ -77,7 +77,7 @@ export default function Products({ token, onAuthError }) {
       setForm(null);
       await loadProducts();
       await loadCategories();
-      setMessage(result.mediaCleanupWarning || 'Product saved.');
+      onNotify(result.mediaCleanupWarning || 'Product saved successfully.', result.mediaCleanupWarning ? 'warning' : 'success');
     } catch (requestError) {
       handleError(requestError);
     } finally {
@@ -91,7 +91,7 @@ export default function Products({ token, onAuthError }) {
       const result = await api(`/products/${product._id}`, { method: 'DELETE', token });
       await loadProducts();
       await loadCategories();
-      setMessage(result.warning || 'Product deleted.');
+      onNotify(result.warning || 'Product deleted successfully.', result.warning ? 'warning' : 'success');
     } catch (requestError) {
       handleError(requestError);
     }
@@ -108,7 +108,7 @@ export default function Products({ token, onAuthError }) {
     const picked = Array.from(event.target.files || []);
     event.target.value = '';
     const available = Math.max(0, MAX_PRODUCT_IMAGES - form.images.length - form.newImages.length);
-    setMessage(picked.length > available ? `A product can have no more than ${MAX_PRODUCT_IMAGES} images.` : '');
+    if (picked.length > available) onNotify(`A product can have no more than ${MAX_PRODUCT_IMAGES} images.`, 'error');
     setForm((current) => ({ ...current, newImages: [...current.newImages, ...picked.slice(0, available)] }));
   };
 

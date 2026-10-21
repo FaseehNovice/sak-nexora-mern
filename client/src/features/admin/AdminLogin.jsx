@@ -3,7 +3,7 @@ import { Alert, Box, Button, CircularProgress, Paper, TextField, Typography } fr
 import { Link as RouterLink } from 'react-router-dom';
 import { api } from '../../api.js';
 
-export default function Login({ onToken }) {
+export default function Login({ onToken, onNotify }) {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [setup, setSetup] = useState(null);
   const [setupError, setSetupError] = useState('');
@@ -27,6 +27,7 @@ export default function Login({ onToken }) {
       onToken(result.token);
     } catch (requestError) {
       setError(requestError.message);
+      onNotify(requestError.message, 'error');
     } finally {
       setLoading(false);
     }

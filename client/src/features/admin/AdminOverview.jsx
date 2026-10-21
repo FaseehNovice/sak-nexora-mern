@@ -4,7 +4,7 @@ import { AddPhotoAlternateOutlinedIcon, CategoryOutlinedIcon, Inventory2Outlined
 import { api } from '../../api.js';
 import { adminErrorMessage, isAuthError } from './adminUtils.js';
 
-export default function Overview({ token, onAuthError, onNavigate }) {
+export default function Overview({ token, onAuthError, onNavigate, onNotify }) {
   const [stats, setStats] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,9 @@ export default function Overview({ token, onAuthError, onNavigate }) {
     }).catch((requestError) => {
       if (!active) return;
       if (isAuthError(requestError)) onAuthError();
-      setError(adminErrorMessage(requestError));
+      const message = adminErrorMessage(requestError);
+      setError(message);
+      onNotify(message, 'error');
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [token, onAuthError]);

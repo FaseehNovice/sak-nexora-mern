@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  Avatar, Box, Button, Chip, Divider, Stack, ThemeProvider, Typography, createTheme,
+  Alert, Avatar, Box, Button, Chip, Divider, Snackbar, Stack, ThemeProvider, Typography, createTheme,
 } from '@mui/material';
 import {
   AnalyticsOutlinedIcon, CategoryOutlinedIcon, Inventory2OutlinedIcon,
@@ -56,6 +56,8 @@ const tabs = [
 export default function Admin() {
   const [token, setToken] = useState(() => localStorage.getItem('sak-admin') || '');
   const [tab, setTab] = useState('overview');
+  const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
+  const notify = useCallback((message, severity = 'success') => setToast({ open: true, message, severity }), []);
   const logout = useCallback(() => {
     localStorage.removeItem('sak-admin');
     setToken('');
@@ -66,7 +68,7 @@ export default function Admin() {
   return (
     <ThemeProvider theme={theme}>
       {!token ? (
-        <AdminLogin onToken={(nextToken) => {
+        <AdminLogin onNotify={notify} onToken={(nextToken) => {
           localStorage.setItem('sak-admin', nextToken);
           setToken(nextToken);
         }} />
@@ -112,13 +114,16 @@ export default function Admin() {
               </Stack>
             </Box>
 
-            {tab === 'overview' && <AdminOverview token={token} onAuthError={logout} onNavigate={setTab} />}
-            {tab === 'products' && <AdminProducts token={token} onAuthError={logout} />}
-            {tab === 'categories' && <AdminCategories token={token} onAuthError={logout} />}
-            {tab === 'enquiries' && <AdminEnquiries token={token} onAuthError={logout} />}
+            {tab === 'overview' && <AdminOverview token={token} onAuthError={logout} onNavigate={setTab} onNotify={notify} />}
+            {tab === 'products' && <AdminProducts token={token} onAuthError={logout} onNotify={notify} />}
+            {tab === 'categories' && <AdminCategories token={token} onAuthError={logout} onNotify={notify} />}
+            {tab === 'enquiries' && <AdminEnquiries token={token} onAuthError={logout} onNotify={notify} />}
           </Box>
         </Box>
       )}
+      <Snackbar open={toast.open} autoHideDuration={4500} onClose={() => setToast((current) => ({ ...current, open: false }))} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <Alert onClose={() => setToast((current) => ({ ...current, open: false }))} severity={toast.severity} variant="filled" sx={{ width: '100%' }}>{toast.message}</Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }

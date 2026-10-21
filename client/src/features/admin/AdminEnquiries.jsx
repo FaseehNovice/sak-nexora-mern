@@ -4,7 +4,7 @@ import { DeleteOutlineIcon, MailOutlineIcon, SearchOutlinedIcon } from '../../co
 import { api, qs } from '../../api.js';
 import { isAuthError } from './adminUtils.js';
 
-export default function Enquiries({ token, onAuthError }) {
+export default function Enquiries({ token, onAuthError, onNotify }) {
   const [list, setList] = useState({ items: [], total: 0, page: 1, pages: 0 });
   const [status, setStatus] = useState('');
   const [term, setTerm] = useState('');
@@ -24,7 +24,7 @@ export default function Enquiries({ token, onAuthError }) {
       .catch((requestError) => {
         if (!active) return;
         if (isAuthError(requestError)) onAuthError();
-        setMessage(requestError.message);
+        onNotify(requestError.message, 'error');
       })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
@@ -41,10 +41,10 @@ export default function Enquiries({ token, onAuthError }) {
           : current.items.map((enquiry) => enquiry._id === id ? { ...enquiry, status: nextStatus } : enquiry),
         total: status && status !== nextStatus ? Math.max(0, current.total - 1) : current.total,
       }));
-      setMessage('');
+      onNotify('Enquiry status updated successfully.');
     } catch (requestError) {
       if (isAuthError(requestError)) onAuthError();
-      setMessage(requestError.message);
+      onNotify(requestError.message, 'error');
     } finally {
       setBusyId('');
     }
@@ -55,9 +55,10 @@ export default function Enquiries({ token, onAuthError }) {
     try {
       await api(`/enquiries/${id}`, { method: 'DELETE', token });
       setList((current) => ({ ...current, items: current.items.filter((item) => item._id !== id), total: Math.max(0, current.total - 1) }));
+      onNotify('Enquiry deleted successfully.');
     } catch (requestError) {
       if (isAuthError(requestError)) onAuthError();
-      setMessage(requestError.message);
+      onNotify(requestError.message, 'error');
     }
   };
 

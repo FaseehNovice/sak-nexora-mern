@@ -30,6 +30,11 @@ test('rejects invalid product categories, slugs, and image protocols', () => {
   assert.throws(() => parseProductInput({ name: 'Chair', category: categoryId, featured: false, images: ['javascript:alert(1)'] }), InputError);
 });
 
+test('accepts products with more than 20 specifications', () => {
+  const specifications = Array.from({ length: 21 }, (_, index) => ({ label: `Spec ${index + 1}`, value: 'Value' }));
+  const product = parseProductInput({ name: 'Servingware', category: categoryId, featured: false, specifications });
+  assert.equal(product.specifications.length, 21);
+});
 test('normalizes categories and validates sort order', () => {
   assert.deepEqual(parseCategoryInput({ name: 'Bathroom Kits', parent: '', order: '3' }), {
     name: 'Bathroom Kits',

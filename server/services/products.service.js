@@ -62,9 +62,18 @@ async function cleanProduct(body) {
   if (!['true', 'false', true, false].includes(body.featured)) {
     throw new InputError('Choose whether this product is featured.');
   }
+  let specifications = body.specifications;
+  if (typeof specifications === 'string') {
+    try { specifications = JSON.parse(specifications); } catch { throw new InputError('The product specifications must be a valid list.'); }
+  }
+  let customizable = body.customizable;
+  if (customizable === 'true') customizable = true;
+  if (customizable === 'false') customizable = false;
   const product = parseProductInput({
     ...body,
     featured: body.featured === true || body.featured === 'true',
+    customizable,
+    specifications,
     images: [],
   });
   if (!mongoose.isValidObjectId(product.category) || !await Category.exists({ _id: product.category })) {
@@ -173,6 +182,7 @@ export async function createProduct(body, files, isMultipart) {
       throw new InputError('New products cannot have existing images.');
     }
     const product = await cleanProduct(body);
+    if (files.length > IMAGE_LIMIT) throw new InputError(`A product can have no more than ${IMAGE_LIMIT} images.`);
     images = await uploadProductFiles(files, product.slug);
     return await Product.create({ ...product, images });
   } catch (error) {
@@ -190,6 +200,7 @@ export async function updateProduct(id, body, files, isMultipart) {
     if (!current) return null;
     const previousImages = [...(current.images || [])];
     const product = await cleanProduct(body);
+    if (files.length > IMAGE_LIMIT) throw new InputError(`A product can have no more than ${IMAGE_LIMIT} images.`);
     const existingImages = requestedExistingImages(body.existingImages, current.images || []);
     if (existingImages.length + files.length > IMAGE_LIMIT) {
       throw new InputError(`A product can have no more than ${IMAGE_LIMIT} images.`);

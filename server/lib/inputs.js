@@ -49,7 +49,7 @@ function parseProductInput(value) {
     return url.toString();
   });
   const specifications = body.specifications === undefined ? [] : body.specifications;
-  if (!Array.isArray(specifications) || specifications.length > 20) throw new InputError('Add no more than 20 product specifications.');
+  if (!Array.isArray(specifications)) throw new InputError('The product specifications must be a list.');
   const cleanSpecifications = specifications.map((item) => {
     const row = requireRecord(item, 'A product specification');
     return {

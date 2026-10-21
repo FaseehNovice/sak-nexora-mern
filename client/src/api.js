@@ -8,6 +8,7 @@ export async function api(path, { method = 'GET', body, token } = {}) {
   try {
     const res = await fetch(BASE + path, {
       method,
+      cache: method === 'GET' ? 'no-store' : undefined,
       headers,
       body: body ? (isFormData ? body : JSON.stringify(body)) : undefined,
     });

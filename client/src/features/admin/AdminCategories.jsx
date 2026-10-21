@@ -15,7 +15,7 @@ function CategoryImagePreview({ src, file }) {
   }, [file, src]);
   return preview ? <Box sx={{ mt: 1 }}><img src={preview} alt="Category cover preview" style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8 }} /></Box> : null;
 }
-export default function Categories({ token, onAuthError }) {
+export default function Categories({ token, onAuthError, onNotify }) {
   const [tree, setTree] = useState([]);
   const [list, setList] = useState([]);
   const [form, setForm] = useState(null);
@@ -34,7 +34,7 @@ export default function Categories({ token, onAuthError }) {
       setMessage('');
     } catch (requestError) {
       if (isAuthError(requestError)) onAuthError();
-      setMessage(requestError.message);
+      onNotify(requestError.message, 'error');
     }
   }, [token, onAuthError]);
 
@@ -55,10 +55,10 @@ export default function Categories({ token, onAuthError }) {
       await refreshCategories();
       await load();
       setForm(null);
-      setMessage('Category saved.');
+      onNotify('Category saved successfully.');
     } catch (requestError) {
       if (isAuthError(requestError)) onAuthError();
-      setMessage(requestError.message);
+      onNotify(requestError.message, 'error');
     } finally {
       setBusy(false);
     }
@@ -70,10 +70,10 @@ export default function Categories({ token, onAuthError }) {
       await api(`/categories/${category._id}`, { method: 'DELETE', token });
       await refreshCategories();
       await load();
-      setMessage('Category deleted.');
+      onNotify('Category deleted successfully.');
     } catch (requestError) {
       if (isAuthError(requestError)) onAuthError();
-      setMessage(requestError.message);
+      onNotify(requestError.message, 'error');
     }
   };
 
