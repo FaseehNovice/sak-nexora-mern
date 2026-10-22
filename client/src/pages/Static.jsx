@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { useCategories } from '../hooks.js';
+import { categoryCounts } from '../catalogueCounts.js';
 import { useEnquiry } from '../context/EnquiryContext.jsx';
 import ContactCtaSection from '../features/home/components/ContactCtaSection.jsx';
 import SafeImg from '../components/SafeImg.jsx';
 
 export function About() {
+  const { data: categories } = useCategories();
+  const counts = categoryCounts(categories);
   useEffect(() => {
     window.scrollTo(0, 0);
     const $$ = (sel) => Array.prototype.slice.call(document.querySelectorAll(sel));
@@ -187,7 +191,7 @@ export function About() {
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">179 items</span>
+                <span className="bento__count">{counts.furniture} items</span>
                 <span className="bento__name">Furniture</span>
                 <span className="bento__kids">Chairs · Sofas &amp; Seating · Tables · Tea Trolleys · Storage &amp; Décor</span>
                 <span className="bento__go" aria-hidden="true">
@@ -205,7 +209,7 @@ export function About() {
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">82 items</span>
+                <span className="bento__count">{counts.cutlery} items</span>
                 <span className="bento__name">Cutlery</span>
                 <span className="bento__kids">Shine · Matte · Gold · Matte Gold</span>
                 <span className="bento__go" aria-hidden="true">
@@ -223,7 +227,7 @@ export function About() {
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">25 items</span>
+                <span className="bento__count">{counts.crockery} items</span>
                 <span className="bento__name">Crockery</span>
                 <span className="bento__kids">Melamine · Porcelain · Pizza Pans &amp; Plates</span>
                 <span className="bento__go" aria-hidden="true">
@@ -241,7 +245,7 @@ export function About() {
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">11 items</span>
+                <span className="bento__count">{counts.accessories} items</span>
                 <span className="bento__name">Accessories</span>
                 <span className="bento__kids">Everyday table and kitchen disposables, supplied in bulk.</span>
                 <span className="bento__go" aria-hidden="true">
@@ -259,7 +263,7 @@ export function About() {
               <span className="bento__shade" aria-hidden="true" />
               <span className="bento__glare" aria-hidden="true" />
               <span className="bento__body">
-                <span className="bento__count">4 items</span>
+                <span className="bento__count">{counts['bathroom-kits']} items</span>
                 <span className="bento__name">Bathroom Kits</span>
                 <span className="bento__kids">Eco-friendly guest amenity kits for hotels and guest houses.</span>
                 <span className="bento__go" aria-hidden="true">

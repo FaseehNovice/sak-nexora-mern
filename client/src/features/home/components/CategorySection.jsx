@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import SafeImg from '../../../components/SafeImg.jsx';
 import { referenceImages } from '../../../referenceImages.js';
+import { categoryCount } from '../../../catalogueCounts.js';
 
 const STAGING_IMAGES = {
   furniture: 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515726/sak-nexora/products/modern-astoria-dining-table-with-toranto-chairs-511efce4-7917-4d0f-a3b5-d184ef12e7e0-1.webp',
@@ -10,13 +11,7 @@ const STAGING_IMAGES = {
   'bathroom-kits': 'https://res.cloudinary.com/dspo5bfyg/image/upload/v1792515188/sak-nexora/products/wooden-bathroom-amenity-kit-95c85fab-a24c-47be-9d2b-9bf77d577de6-1.webp',
 };
 
-const DEFAULT_COUNTS = {
-  furniture: 179,
-  cutlery: 82,
-  crockery: 25,
-  accessories: 11,
-  'bathroom-kits': 4,
-};
+
 
 export default function CategorySection({ cats = [], covers = {}, categoriesError }) {
   // Ordered standard categories
@@ -26,7 +21,7 @@ export default function CategorySection({ cats = [], covers = {}, categoriesErro
     return existing || {
       slug,
       name: slug === 'bathroom-kits' ? 'Bathroom Kits' : slug.charAt(0).toUpperCase() + slug.slice(1),
-      count: DEFAULT_COUNTS[slug] || 0,
+      count: categoryCount(cats, slug),
       children: [],
       description: '',
     };
@@ -58,7 +53,7 @@ export default function CategorySection({ cats = [], covers = {}, categoriesErro
             const kidsText = category.children?.length
               ? category.children.map((c) => c.name).join(' · ')
               : category.description || (category.slug === 'accessories' ? 'Everyday table and kitchen disposables, supplied in bulk.' : 'Eco-friendly guest amenity kits for Hotels and guest houses.');
-            const count = category.count || DEFAULT_COUNTS[category.slug] || 0;
+            const count = categoryCount(cats, category.slug);
 
             return (
               <Link

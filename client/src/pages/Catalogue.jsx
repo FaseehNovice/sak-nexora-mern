@@ -131,9 +131,12 @@ function CategoryListing({ routeSlugs, sp, setSp, query }) {
     ? `Search: ${query}`
     : currentCat?.name || 'Catalogue';
 
+  const categoryDescription = currentCat?.description && !/^\d+\s+items$/i.test(currentCat.description)
+    ? currentCat.description
+    : null;
   const ledeText = query
     ? `Found ${totalItems} results matching “${query}”.`
-    : currentCat?.description || 'SS-304 (18/8) stainless steel cutlery in four finishes, sold as sets for 4 to 12 settings.';
+    : categoryDescription || 'SS-304 (18/8) stainless steel cutlery in four finishes, sold as sets for 4 to 12 settings.';
 
   return (
     <>

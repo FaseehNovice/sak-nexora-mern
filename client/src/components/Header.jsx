@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useCategories } from '../hooks';
+import { categoryCount } from '../catalogueCounts.js';
 import { useEnquiry } from '../context/EnquiryContext.jsx';
 import Brand from './Brand.jsx';
 
@@ -70,11 +71,11 @@ export default function Header() {
   };
 
   // Pre-mapped counts and subcategories
-  const furnitureCat = categories.find((c) => c.slug === 'furniture');
-  const cutleryCat = categories.find((c) => c.slug === 'cutlery');
-  const crockeryCat = categories.find((c) => c.slug === 'crockery');
-  const accessoriesCat = categories.find((c) => c.slug === 'accessories');
-  const bathroomKitsCat = categories.find((c) => c.slug === 'bathroom-kits');
+  const furnitureCount = categoryCount(categories, 'furniture');
+  const cutleryCount = categoryCount(categories, 'cutlery');
+  const crockeryCount = categoryCount(categories, 'crockery');
+  const accessoriesCount = categoryCount(categories, 'accessories');
+  const bathroomKitsCount = categoryCount(categories, 'bathroom-kits');
 
   return (
     <header className="site-header" data-header="" ref={headerRef}>
@@ -121,7 +122,7 @@ export default function Header() {
                 <div className="mega__inner wrap">
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/furniture/">
-                      Furniture <span>{furnitureCat?.count ?? 179}</span>
+                      Furniture <span>{furnitureCount}</span>
                     </Link>
                     <ul>
                       <li><Link to="/catalogue/furniture/chairs/">Chairs</Link></li>
@@ -133,7 +134,7 @@ export default function Header() {
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/cutlery/">
-                      Cutlery <span>{cutleryCat?.count ?? 82}</span>
+                      Cutlery <span>{cutleryCount}</span>
                     </Link>
                     <ul>
                       <li><Link to="/catalogue/cutlery/cutlery-shine/">Shine</Link></li>
@@ -144,7 +145,7 @@ export default function Header() {
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/crockery/">
-                      Crockery <span>{crockeryCat?.count ?? 25}</span>
+                      Crockery <span>{crockeryCount}</span>
                     </Link>
                     <ul>
                       <li><Link to="/catalogue/crockery/melamine/">Melamine</Link></li>
@@ -155,13 +156,13 @@ export default function Header() {
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/accessories/">
-                      Accessories <span>{accessoriesCat?.count ?? 11}</span>
+                      Accessories <span>{accessoriesCount}</span>
                     </Link>
                     <p>Everyday table and kitchen disposables, supplied in bulk.</p>
                   </div>
                   <div className="mega__col">
                     <Link className="mega__head" to="/catalogue/bathroom-kits/">
-                      Bathroom Kits <span>{bathroomKitsCat?.count ?? 4}</span>
+                      Bathroom Kits <span>{bathroomKitsCount}</span>
                     </Link>
                     <p>Eco-friendly guest amenity kits for Hotels and guest houses.</p>
                   </div>
