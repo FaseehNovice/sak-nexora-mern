@@ -18,7 +18,7 @@ const SECTORS_DATA = [
   {
     num: '03',
     name: 'Restaurants',
-    image: '/staging/wp-content/themes/sak-nexora/assets/images/sectors/restaurant.webp',
+    image: referenceImages.sectors.restaurant,
     blurb: 'Durable dining furniture, melamine and porcelain, cutlery and the everyday disposables a busy kitchen runs on.',
     tags: ['Dining chairs', 'Crockery', 'Cutlery', 'Accessories'],
   },
