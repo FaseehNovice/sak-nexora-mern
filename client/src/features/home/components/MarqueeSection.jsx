@@ -2,14 +2,10 @@ import { Fragment } from 'react';
 
 const ITEMS = [
   'Furniture',
-  'Banquet Halls',
-  'Cutlery',
-  'Hotels',
   'Crockery',
-  'Restaurants',
+  'Cutlery',
   'Accessories',
-  'Coffee Shops',
-  'Bathroom kits',
+  'Bathroom Kits',
 ];
 
 export default function MarqueeSection() {

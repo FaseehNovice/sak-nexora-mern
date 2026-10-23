@@ -277,7 +277,7 @@ export function About() {
         </div>
       </section>
 
-      <section className="marquee" aria-label="What we supply">
+      <section className="marquee about-marquee" aria-label="What we supply">
         <div className="marquee__track" data-marquee="-1">
           <div className="marquee__set">
             <span>Furniture</span><i aria-hidden="true" />

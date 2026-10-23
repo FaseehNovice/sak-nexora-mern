@@ -106,11 +106,13 @@ ul[class], ol[class] { margin: 0; padding: 0; list-style: none; }
 .skip-link:focus { top: 16px; }
 
 .foil-text {
-	background: var(--foil);
+	background-image: var(--foil);
 	background-size: 200% 100%;
 	-webkit-background-clip: text;
 	background-clip: text;
-	color: transparent;
+	/* Solid fallback plus WebKit text fill keeps the same foil look on Samsung Browser. */
+	color: var(--gold-hi);
+	-webkit-text-fill-color: transparent;
 }
 .foil-text--shimmer { animation: foil-shift 7s var(--ease-in-out) infinite alternate; }
 @keyframes foil-shift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }

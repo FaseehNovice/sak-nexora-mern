@@ -348,6 +348,8 @@
 
 /* ---- About and FAQ pages --------------------------------------------------------- */
 
+.marquee.about-marquee { margin: calc(var(--section) * -0.5) -2vw calc(var(--section) * 0.5); }
+
 .about-story__grid { display: grid; gap: clamp(40px, 6vw, 80px); align-items: center; }
 @media (min-width: 960px) { .about-story__grid { grid-template-columns: 1fr 1fr; } }
 .about-story__media { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-l); background: var(--ink-3); }
